@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InformationalMessage } from './entities/informational-message.entity';
@@ -9,6 +8,6 @@ import { InformationalMessageController } from './informational-message.controll
   imports: [TypeOrmModule.forFeature([InformationalMessage])],
   controllers: [InformationalMessageController],
   providers: [InformationalMessageService],
-  exports: [InformationalMessageService]
+  exports: [InformationalMessageService],
 })
 export class InformationalMessageModule {}

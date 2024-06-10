@@ -18,24 +18,18 @@ import { ProductType } from 'src/common/entities/product-type.entity';
     StateService,
     TownshipService,
     ParishService,
-    ProductTypeService
+    ProductTypeService,
   ],
   exports: [
     CountryService,
     StateService,
     TownshipService,
     ParishService,
-    ProductTypeService
+    ProductTypeService,
   ],
   imports: [
-    TypeOrmModule.forFeature([
-      Country,
-      State,
-      Township,
-      Parish,
-      ProductType
-    ]),
+    TypeOrmModule.forFeature([Country, State, Township, Parish, ProductType]),
   ],
   controllers: [MasterTablesController],
 })
-export class MasterTablesModule { }
+export class MasterTablesModule {}

@@ -64,7 +64,7 @@ import { UserRiskModule } from './modules/user-risk/user-risk.module';
         database: configService.get('database.database'),
         entities: [
           __dirname + '/modules/**/entities/*.entity{.ts,.js}',
-          __dirname + '/common/entities/*.entity{.ts,.js}'
+          __dirname + '/common/entities/*.entity{.ts,.js}',
         ],
         synchronize: configService.get('database.synchronize'),
         logging: ['error', 'query'],
@@ -112,7 +112,7 @@ import { UserRiskModule } from './modules/user-risk/user-risk.module';
     RiskModelModule,
     ScoreFactorsModule,
     TradelineModule,
-    UserRiskModule
+    UserRiskModule,
   ],
   providers: [
     {
@@ -121,4 +121,4 @@ import { UserRiskModule } from './modules/user-risk/user-risk.module';
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

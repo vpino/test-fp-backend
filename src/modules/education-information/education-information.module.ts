@@ -7,10 +7,7 @@ import { EducationInformationController } from './education-information.controll
 @Module({
   providers: [EducationInformationService],
   controllers: [EducationInformationController],
-  imports: [
-    TypeOrmModule.forFeature([EducationInformation])
-  ],
+  imports: [TypeOrmModule.forFeature([EducationInformation])],
   exports: [EducationInformationService],
-
 })
 export class EducationInformationModule {}

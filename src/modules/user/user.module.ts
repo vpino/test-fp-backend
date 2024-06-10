@@ -15,7 +15,7 @@ import { Persona } from '../persona/entities/persona.entity';
     ConfigModule.forRoot(),
     TypeOrmModule.forFeature([User, Persona]),
     CommonModule,
-    PersonaModule
+    PersonaModule,
   ],
   controllers: [UserController],
 })

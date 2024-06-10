@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,9 @@ import { UpdateConsumerIdentityDto } from './dtos/update.consumer-identity.dto';
 @ApiTags('ConsumerIdentity')
 @Controller('consumer-identity')
 export class ConsumerIdentityController {
-  constructor(private readonly consumerIdentityService: ConsumerIdentityService) { }
+  constructor(
+    private readonly consumerIdentityService: ConsumerIdentityService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
@@ -49,8 +50,12 @@ export class ConsumerIdentityController {
     status: 201,
     description: 'The ConsumerIdentity has been successfully created.',
   })
-  async create(@Body() consumerIdentity: CreateConsumerIdentityDto): Promise<ResponseDTO> {
-    return { data: await this.consumerIdentityService.create(consumerIdentity) }
+  async create(
+    @Body() consumerIdentity: CreateConsumerIdentityDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.consumerIdentityService.create(consumerIdentity),
+    };
   }
 
   @SkipJwtAuth()

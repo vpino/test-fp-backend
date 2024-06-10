@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { InquiryController } from './inquiry.controller';
 import { InquiryService } from './inquiry.service';

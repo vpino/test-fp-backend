@@ -7,10 +7,10 @@ import { ProviderInformation } from './entities/provider-information.entity';
 @Injectable()
 export class ProviderInformationService extends CrudService<ProviderInformation> {
   constructor(
-    @InjectRepository(ProviderInformation) private providerInformationRepository: Repository<ProviderInformation>,
+    @InjectRepository(ProviderInformation)
+    private providerInformationRepository: Repository<ProviderInformation>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(providerInformationRepository, 'id', dataSourceInject);
   }
-
 }

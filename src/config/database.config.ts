@@ -8,7 +8,7 @@ export default registerAs('database', () => ({
   database: process.env.POSTGRES_DATABASE,
   entities: [
     __dirname + '/modules/**/entities/*.entity{.ts,.js}',
-    __dirname + '/common/entities/*.entity{.ts,.js}'
+    __dirname + '/common/entities/*.entity{.ts,.js}',
   ],
   synchronize: process.env.SYNCHRONIZE ? true : false,
   logging: process.env.LOGGING?.split(',') ?? ['error, query'],

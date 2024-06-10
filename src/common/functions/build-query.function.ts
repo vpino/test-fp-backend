@@ -11,7 +11,7 @@ export function buildQuery<T>(query): ParamsDTO<T> {
     limit,
     skip,
     fieldSelected,
-    relations
+    relations,
   });
 
   const errors = validateSync(params);

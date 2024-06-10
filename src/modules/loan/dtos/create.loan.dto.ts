@@ -1,4 +1,12 @@
-import { IsArray, IsBoolean, IsDate, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { ClientTags } from 'src/modules/client-tags/entities/client-tags.entity';
 import { CreditInformation } from 'src/modules/credit-information/entities/credit-information.entity';

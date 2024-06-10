@@ -9,7 +9,9 @@ describe('MortgageInformationController', () => {
       controllers: [MortgageInformationController],
     }).compile();
 
-    controller = module.get<MortgageInformationController>(MortgageInformationController);
+    controller = module.get<MortgageInformationController>(
+      MortgageInformationController,
+    );
   });
 
   it('should be defined', () => {

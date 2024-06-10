@@ -7,10 +7,7 @@ import { LoanInformationController } from './loan-information.controller';
 @Module({
   providers: [LoanInformationService],
   controllers: [LoanInformationController],
-  imports: [
-    TypeOrmModule.forFeature([LoanInformation])
-  ],
+  imports: [TypeOrmModule.forFeature([LoanInformation])],
   exports: [LoanInformationService],
-
 })
 export class LoanInformationModule {}

@@ -8,7 +8,8 @@ import { DataSource, Repository } from 'typeorm';
 @Injectable()
 export class TownshipService extends CrudService<Township> {
   constructor(
-    @InjectRepository(Township) private townshipRepository: Repository<Township>,
+    @InjectRepository(Township)
+    private townshipRepository: Repository<Township>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(townshipRepository, 'id', dataSourceInject);
@@ -17,7 +18,7 @@ export class TownshipService extends CrudService<Township> {
   async getTownshipByState(state: string) {
     try {
       const townships = await this.getAll({
-        filter: { state }
+        filter: { state },
       });
 
       if (!townships || !townships.data) {

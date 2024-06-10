@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { InformationalMessageService } from './informational-message.service';
 
@@ -10,7 +9,9 @@ describe('InformationalMessageService', () => {
       providers: [InformationalMessageService],
     }).compile();
 
-    service = module.get<InformationalMessageService>(InformationalMessageService);
+    service = module.get<InformationalMessageService>(
+      InformationalMessageService,
+    );
   });
 
   it('should be defined', () => {

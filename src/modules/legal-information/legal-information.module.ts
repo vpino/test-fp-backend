@@ -7,10 +7,7 @@ import { LegalInformationController } from './legal-information.controller';
 @Module({
   providers: [LegalInformationService],
   controllers: [LegalInformationController],
-  imports: [
-    TypeOrmModule.forFeature([LegalInformation])
-  ],
+  imports: [TypeOrmModule.forFeature([LegalInformation])],
   exports: [LegalInformationService],
-
 })
 export class LegalInformationModule {}

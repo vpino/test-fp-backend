@@ -1,9 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsBoolean, IsString, IsNumber, IsDate, ArrayNotEmpty, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsBoolean,
+  IsString,
+  IsNumber,
+  IsDate,
+  ArrayNotEmpty,
+  ValidateNested,
+} from 'class-validator';
 
 export class CreateScoreFactorsDto {
-
   @ApiProperty()
   @IsString()
   importance: string;

@@ -8,4 +8,3 @@ export interface IPublicRecord {
   status: string;
   statusDate: string;
 }
-

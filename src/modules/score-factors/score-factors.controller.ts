@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateScoreFactorsDto } from './dtos/update.score-factors.dto';
 @ApiTags('ScoreFactors')
 @Controller('score-factors')
 export class ScoreFactorsController {
-  constructor(private readonly scoreFactorsService: ScoreFactorsService) { }
+  constructor(private readonly scoreFactorsService: ScoreFactorsService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -49,8 +48,10 @@ export class ScoreFactorsController {
     status: 201,
     description: 'The ScoreFactors has been successfully created.',
   })
-  async create(@Body() scoreFactors: CreateScoreFactorsDto): Promise<ResponseDTO> {
-    return { data: await this.scoreFactorsService.create(scoreFactors) }
+  async create(
+    @Body() scoreFactors: CreateScoreFactorsDto,
+  ): Promise<ResponseDTO> {
+    return { data: await this.scoreFactorsService.create(scoreFactors) };
   }
 
   @SkipJwtAuth()

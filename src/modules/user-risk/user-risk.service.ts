@@ -1,10 +1,15 @@
-
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { UserRisk } from './entities/user-risk.entity';
-import { getRandomDate, getRandomElement, getRandomInt, getRandomString, getRandomUUID } from 'src/common/functions/random-data.function';
+import {
+  getRandomDate,
+  getRandomElement,
+  getRandomInt,
+  getRandomString,
+  getRandomUUID,
+} from 'src/common/functions/random-data.function';
 import { ProviderInformationService } from '../provider-information/provider-information.service';
 import { AddressInformationService } from '../address-information/address-information.service';
 import { ConsumerIdentityService } from '../consumer-identity/consumer-identity.service';
@@ -22,7 +27,8 @@ import { EnhancedPaymentDataService } from '../enhanced-payment-data/enhanced-pa
 @Injectable()
 export class UserRiskService extends CrudService<UserRisk> {
   constructor(
-    @InjectRepository(UserRisk) private userRiskRepository: Repository<UserRisk>,
+    @InjectRepository(UserRisk)
+    private userRiskRepository: Repository<UserRisk>,
     private readonly dataSourceInject: DataSource,
     private readonly providerInformationService: ProviderInformationService,
     private readonly addressInformationService: AddressInformationService,
@@ -37,7 +43,7 @@ export class UserRiskService extends CrudService<UserRisk> {
     private readonly enhancedPaymentDataService: EnhancedPaymentDataService,
     private readonly tradelineService: TradelineService,
 
-    private readonly endTotalsService: EndTotalsService
+    private readonly endTotalsService: EndTotalsService,
   ) {
     super(userRiskRepository, 'id', dataSourceInject);
   }
@@ -59,46 +65,75 @@ export class UserRiskService extends CrudService<UserRisk> {
       userRisk.riskTier = this.generateRiskTier();
 
       const providerInformation = this.generateProviderInformation(userRisk);
-      const createdProviderInfo = await this.providerInformationService.createTransactional(providerInformation);
+      const createdProviderInfo =
+        await this.providerInformationService.createTransactional(
+          providerInformation,
+        );
       userRisk.providerInformation = [createdProviderInfo];
 
       const addressInformation = this.generateAddressInformation(userRisk);
-      const createdAddressInformation = await this.addressInformationService.createTransactional(addressInformation);
+      const createdAddressInformation =
+        await this.addressInformationService.createTransactional(
+          addressInformation,
+        );
       userRisk.addressInformation = [createdAddressInformation];
 
-      const nameConsumerIdentity = this.generateConsumerIdentity()
-      const createNameCustomer = await this.nameService.createTransactional(nameConsumerIdentity);
+      const nameConsumerIdentity = this.generateConsumerIdentity();
+      const createNameCustomer =
+        await this.nameService.createTransactional(nameConsumerIdentity);
 
-      const consumerIdentity = await this.consumerIdentityService.createTransactional({ names: [createNameCustomer]})
+      const consumerIdentity =
+        await this.consumerIdentityService.createTransactional({
+          names: [createNameCustomer],
+        });
       userRisk.consumerIdentity = [consumerIdentity];
 
-      const employmentInformation = await this.employmentInformationService.createTransactional(this.generateEmploymentInformation(userRisk));
+      const employmentInformation =
+        await this.employmentInformationService.createTransactional(
+          this.generateEmploymentInformation(userRisk),
+        );
       userRisk.employmentInformation = [employmentInformation];
 
-      const informationalMessage = await this.informationalMessageService.createTransactional(this.generateInformationalMessage(userRisk));
+      const informationalMessage =
+        await this.informationalMessageService.createTransactional(
+          this.generateInformationalMessage(userRisk),
+        );
       userRisk.informationalMessage = [informationalMessage];
 
-      const inquiry = await this.inquiryService.createTransactional(this.generateInquiry(userRisk));
+      const inquiry = await this.inquiryService.createTransactional(
+        this.generateInquiry(userRisk),
+      );
       userRisk.inquiry = [inquiry];
 
-      const ofac = await this.ofacService.createTransactional(this.generateOfac(userRisk));
+      const ofac = await this.ofacService.createTransactional(
+        this.generateOfac(userRisk),
+      );
       userRisk.ofac = [ofac];
 
-      const publicRecord = await this.publicRecordService.createTransactional(this.generatePublicRecord(userRisk));
+      const publicRecord = await this.publicRecordService.createTransactional(
+        this.generatePublicRecord(userRisk),
+      );
       userRisk.publicRecord = [publicRecord];
 
-      const riskModel = await this.riskModelService.createTransactional(this.generateRiskModel(userRisk));
+      const riskModel = await this.riskModelService.createTransactional(
+        this.generateRiskModel(userRisk),
+      );
       userRisk.riskModel = [riskModel];
 
-      const createdTradeLine = this.generateTradeline(userRisk)
+      const createdTradeLine = this.generateTradeline(userRisk);
 
-      const enhancedPaymentData = createdTradeLine.enhancedPaymentData
+      const enhancedPaymentData = createdTradeLine.enhancedPaymentData;
 
-      createdTradeLine.enhancedPaymentData = await this.enhancedPaymentDataService.createTransactional(enhancedPaymentData);
+      createdTradeLine.enhancedPaymentData =
+        await this.enhancedPaymentDataService.createTransactional(
+          enhancedPaymentData,
+        );
       // const tradeline = await this.tradelineService.createTransactional(createdTradeLine);
       // userRisk.tradeline = [tradeline];
 
-      const endTotals = await this.endTotalsService.createTransactional(this.generateEndTotals(userRisk));
+      const endTotals = await this.endTotalsService.createTransactional(
+        this.generateEndTotals(userRisk),
+      );
       userRisk.endTotals = [endTotals];
 
       await entityManager.save(userRisk);
@@ -114,7 +149,7 @@ export class UserRiskService extends CrudService<UserRisk> {
         provider_information: {
           subscriberCode: userRisk.providerInformation[0].subscriberCode,
           subscriberName: userRisk.providerInformation[0].subscriberName,
-          terms: userRisk.providerInformation[0].terms
+          terms: userRisk.providerInformation[0].terms,
         },
         addressInformation: userRisk.addressInformation.map((info) => {
           return {
@@ -131,50 +166,52 @@ export class UserRiskService extends CrudService<UserRisk> {
             timesReported: info.timesReported,
             unitId: info.unitId,
             unitType: info.unitType,
-            zipCode: info.zipCode
-          }
+            zipCode: info.zipCode,
+          };
         }),
         consumerIdentity: {
           name: userRisk.consumerIdentity[0].names.map((name) => {
             return {
               firstName: name.firstName,
               surname: name.surname,
-              type: name.type
-            }
-          })
+              type: name.type,
+            };
+          }),
         },
-        employmentInformation: userRisk.employmentInformation.map((employment) => {
-          return {
-            firstReportedDate: employment.firstReportedDate,
-            lastUpdatedDate: employment.lastUpdatedDate,
-            name: employment.name,
-            source: employment.source
-          }
-        }),
-        informationalMessage: userRisk.informationalMessage.map ((info) => {
+        employmentInformation: userRisk.employmentInformation.map(
+          (employment) => {
+            return {
+              firstReportedDate: employment.firstReportedDate,
+              lastUpdatedDate: employment.lastUpdatedDate,
+              name: employment.name,
+              source: employment.source,
+            };
+          },
+        ),
+        informationalMessage: userRisk.informationalMessage.map((info) => {
           return {
             messageNumber: info.messageNumber,
             messageNumberDetailed: info.messageNumberDetailed,
-            messageText: info.messageText
-          }
+            messageText: info.messageText,
+          };
         }),
-        inquiry: userRisk.inquiry.map( (inquiri) => {
+        inquiry: userRisk.inquiry.map((inquiri) => {
           return {
             amount: inquiri.amount,
             date: inquiri.date,
             subscriberCode: inquiri.subscriberCode,
             subscriberName: inquiri.subscriberName,
             terms: inquiri.terms,
-            type: inquiri.type
-          }
+            type: inquiri.type,
+          };
         }),
         ofac: userRisk.ofac.map((ofac) => {
           return {
             messageNumber: ofac.messageNumber,
-            messageText: ofac.messageText
-          }
+            messageText: ofac.messageText,
+          };
         }),
-        publicRecord: userRisk.publicRecord.map( (record) => {
+        publicRecord: userRisk.publicRecord.map((record) => {
           return {
             courtCode: record.courtCode,
             courtName: record.courtName,
@@ -183,10 +220,10 @@ export class UserRiskService extends CrudService<UserRisk> {
             filingDate: record.filingDate,
             referenceNumber: record.referenceNumber,
             status: record.status,
-            statusDate: record.statusDate
-          }
+            statusDate: record.statusDate,
+          };
         }),
-        riskModel: userRisk.riskModel.map ((risk) => {
+        riskModel: userRisk.riskModel.map((risk) => {
           return {
             evaluation: risk.evaluation,
             modelIndicator: risk.modelIndicator,
@@ -194,16 +231,16 @@ export class UserRiskService extends CrudService<UserRisk> {
             scoreFactors: risk.scoreFactors.map((score) => {
               return {
                 importance: score.importance,
-                code: score.code
-              }
-            })
-          }
+                code: score.code,
+              };
+            }),
+          };
         }),
-        endTotals: userRisk.endTotals.map( (end) => {
+        endTotals: userRisk.endTotals.map((end) => {
           return {
             totalSegments: end.totalSegments,
-            totalLength: end.totalLength
-          }
+            totalLength: end.totalLength,
+          };
         }),
       };
     } catch (err) {
@@ -246,9 +283,9 @@ export class UserRiskService extends CrudService<UserRisk> {
       subscriberCode: getRandomString(7),
       subscriberName: getRandomString(6),
       terms: getRandomInt(1, 200).toString(),
-    }
+    };
 
-    return providerInformation
+    return providerInformation;
   }
 
   generateAddressInformation(userRisk: UserRisk) {
@@ -256,8 +293,12 @@ export class UserRiskService extends CrudService<UserRisk> {
       userRisk,
       city: getRandomString(8),
       dwellingType: getRandomElement(['A', 'S']),
-      firstReportedDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
-      lastUpdatedDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      firstReportedDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
+      lastUpdatedDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       source: getRandomElement(['1', '2']),
       state: getRandomString(2),
       streetName: getRandomString(6),
@@ -267,7 +308,7 @@ export class UserRiskService extends CrudService<UserRisk> {
       unitId: getRandomString(2),
       unitType: getRandomString(3),
       zipCode: getRandomInt(10000, 99999).toString(),
-    }
+    };
 
     return addressInformation;
   }
@@ -284,8 +325,12 @@ export class UserRiskService extends CrudService<UserRisk> {
   generateEmploymentInformation(userRisk: UserRisk) {
     const data = {
       userRisk,
-      firstReportedDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
-      lastUpdatedDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      firstReportedDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
+      lastUpdatedDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       name: getRandomString(8),
       source: getRandomElement(['1', '2']),
     };
@@ -306,7 +351,9 @@ export class UserRiskService extends CrudService<UserRisk> {
     const data = {
       userRisk,
       amount: 'UNKNOWN',
-      date: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      date: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       subscriberCode: getRandomString(7),
       subscriberName: getRandomString(10),
       terms: 'UNK',
@@ -331,10 +378,14 @@ export class UserRiskService extends CrudService<UserRisk> {
       courtName: getRandomString(15),
       ecoa: getRandomInt(1, 9).toString(),
       evaluation: getRandomString(1),
-      filingDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      filingDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       referenceNumber: getRandomString(10),
       status: getRandomInt(1, 20).toString(),
-      statusDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      statusDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
     };
     return data;
   }
@@ -361,7 +412,9 @@ export class UserRiskService extends CrudService<UserRisk> {
       accountType: getRandomInt(1, 20).toString(),
       amount1: getRandomInt(1, 10000).toString(),
       amount1Qualifier: getRandomString(1),
-      balanceDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      balanceDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       delinquencies30Days: getRandomInt(0, 5).toString(),
       delinquencies60Days: getRandomInt(0, 5).toString(),
       delinquencies90to180Days: getRandomInt(0, 5).toString(),
@@ -375,17 +428,23 @@ export class UserRiskService extends CrudService<UserRisk> {
         enhancedTerms: getRandomString(3),
         enhancedTermsFrequency: getRandomString(1),
         originalLoanAmount: getRandomInt(1, 10000).toString(),
-        paymentLevelDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+        paymentLevelDate: getRandomDate(new Date(2020, 0, 1), new Date())
+          .toISOString()
+          .split('T')[0],
       },
       evaluation: getRandomString(1),
       kob: getRandomString(2),
       monthsHistory: getRandomInt(1, 60).toString(),
-      openDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      openDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       openOrClosed: getRandomString(1),
       paymentHistory: getRandomString(10),
       revolvingOrInstallment: getRandomString(1),
       status: getRandomInt(1, 20).toString(),
-      statusDate: getRandomDate(new Date(2020, 0, 1), new Date()).toISOString().split('T')[0],
+      statusDate: getRandomDate(new Date(2020, 0, 1), new Date())
+        .toISOString()
+        .split('T')[0],
       subscriberCode: getRandomString(7),
       subscriberName: getRandomString(10),
       terms: getRandomString(3),

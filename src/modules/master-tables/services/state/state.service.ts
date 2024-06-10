@@ -17,7 +17,7 @@ export class StateService extends CrudService<State> {
   async getStatesByCountry(country: string) {
     try {
       const states = await this.getAll({
-        filter: { country }
+        filter: { country },
       });
 
       if (!states || !states.data) {

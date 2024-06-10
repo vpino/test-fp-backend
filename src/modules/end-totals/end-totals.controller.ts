@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateEndTotalsDto } from './dtos/update.end-totals.dto';
 @ApiTags('EndTotals')
 @Controller('end-totals')
 export class EndTotalsController {
-  constructor(private readonly endTotalsService: EndTotalsService) { }
+  constructor(private readonly endTotalsService: EndTotalsService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class EndTotalsController {
     description: 'The EndTotals has been successfully created.',
   })
   async create(@Body() endTotals: CreateEndTotalsDto): Promise<ResponseDTO> {
-    return { data: await this.endTotalsService.create(endTotals) }
+    return { data: await this.endTotalsService.create(endTotals) };
   }
 
   @SkipJwtAuth()

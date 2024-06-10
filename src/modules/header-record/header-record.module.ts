@@ -7,9 +7,7 @@ import { HeaderRecordController } from './header-record.controller';
 @Module({
   providers: [HeaderRecordService],
   controllers: [HeaderRecordController],
-  imports: [
-    TypeOrmModule.forFeature([HeaderRecord]),
-  ],
-  exports: [HeaderRecordService]
+  imports: [TypeOrmModule.forFeature([HeaderRecord])],
+  exports: [HeaderRecordService],
 })
 export class HeaderRecordModule {}

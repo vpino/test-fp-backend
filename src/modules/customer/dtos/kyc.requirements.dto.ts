@@ -2,17 +2,17 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
 
 export enum CountryCode {
-  MEX = "MEX",
-  ARG = "ARG",
-  BRA = "BRA",
-  COL = "COL",
-  CHL = "CHL",
+  MEX = 'MEX',
+  ARG = 'ARG',
+  BRA = 'BRA',
+  COL = 'COL',
+  CHL = 'CHL',
 }
 
 export class kycRequirements {
   @ApiProperty({
-    enum: CountryCode
+    enum: CountryCode,
   })
   @IsEnum(CountryCode)
-  country: CountryCode
+  country: CountryCode;
 }

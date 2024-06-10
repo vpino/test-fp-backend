@@ -3,4 +3,3 @@ export interface IInformationalMessage {
   messageNumberDetailed: string;
   messageText: string;
 }
-

@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmploymentInformation } from './entities/employment-information.entity';
@@ -9,6 +8,6 @@ import { EmploymentInformationController } from './employment-information.contro
   imports: [TypeOrmModule.forFeature([EmploymentInformation])],
   controllers: [EmploymentInformationController],
   providers: [EmploymentInformationService],
-  exports: [EmploymentInformationService]
+  exports: [EmploymentInformationService],
 })
 export class EmploymentInformationModule {}

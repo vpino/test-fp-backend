@@ -3,4 +3,3 @@ export interface IRiskModel {
   modelIndicator: string;
   score: string;
 }
-

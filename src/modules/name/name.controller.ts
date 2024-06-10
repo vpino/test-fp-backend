@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateNameDto } from './dtos/update.name.dto';
 @ApiTags('Name')
 @Controller('name')
 export class NameController {
-  constructor(private readonly nameService: NameService) { }
+  constructor(private readonly nameService: NameService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class NameController {
     description: 'The Name has been successfully created.',
   })
   async create(@Body() name: CreateNameDto): Promise<ResponseDTO> {
-    return { data: await this.nameService.create(name) }
+    return { data: await this.nameService.create(name) };
   }
 
   @SkipJwtAuth()

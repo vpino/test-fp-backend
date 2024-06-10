@@ -44,7 +44,7 @@ export class PersonaController {
     description: 'The persona has been successfully created.',
   })
   async create(@Body() personaData: CreatePersonaDto): Promise<ResponseDTO> {
-    return { data: this.personaService.create(personaData) }
+    return { data: this.personaService.create(personaData) };
   }
 
   @Put(':id')

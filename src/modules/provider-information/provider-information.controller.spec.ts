@@ -9,7 +9,9 @@ describe('ProviderInformationController', () => {
       controllers: [ProviderInformationController],
     }).compile();
 
-    controller = module.get<ProviderInformationController>(ProviderInformationController);
+    controller = module.get<ProviderInformationController>(
+      ProviderInformationController,
+    );
   });
 
   it('should be defined', () => {

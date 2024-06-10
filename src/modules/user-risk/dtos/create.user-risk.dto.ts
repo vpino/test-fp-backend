@@ -1,8 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsBoolean, IsString, IsNumber, IsDate, ArrayNotEmpty } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsBoolean,
+  IsString,
+  IsNumber,
+  IsDate,
+  ArrayNotEmpty,
+} from 'class-validator';
 
 export class CreateUserRiskDto {
-
   @ApiProperty()
   @IsString()
   modelID: string;
@@ -26,5 +32,4 @@ export class CreateUserRiskDto {
   @ApiProperty()
   @IsString()
   riskTier: string;
-
 }

@@ -7,10 +7,7 @@ import { FinancialInformation } from './entities/financial-information.entity';
 @Module({
   providers: [FinancialInformationService],
   controllers: [FinancialInformationController],
-  imports: [
-    TypeOrmModule.forFeature([FinancialInformation])
-  ],
+  imports: [TypeOrmModule.forFeature([FinancialInformation])],
   exports: [FinancialInformationService],
-
 })
 export class FinancialInformationModule {}

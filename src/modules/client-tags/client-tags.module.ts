@@ -6,10 +6,7 @@ import { ClientTags } from './entities/client-tags.entity';
 @Module({
   providers: [ClientTagsService],
   controllers: [],
-  imports: [
-    TypeOrmModule.forFeature([ClientTags])
-  ],
+  imports: [TypeOrmModule.forFeature([ClientTags])],
   exports: [ClientTagsService],
-
 })
 export class ClientTagsModule {}

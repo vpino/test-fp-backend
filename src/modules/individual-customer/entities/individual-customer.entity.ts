@@ -1,13 +1,22 @@
 import { StatusKyc } from 'src/common/enums/customer.enums';
 import { Customer } from 'src/modules/customer/entities/customer.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 
 @Entity()
 export class IndividualCustomer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Customer, customer => customer.id, { nullable: true })
+  @OneToOne(() => Customer, (customer) => customer.id, { nullable: true })
   @JoinColumn({ name: 'customerId' })
   customerId: Customer;
 
@@ -44,7 +53,12 @@ export class IndividualCustomer {
   @Column({ type: 'varchar', length: 200, nullable: true })
   addressExtension: string;
 
-  @Column({ type: 'enum', enum: StatusKyc, default: StatusKyc.CREATED, nullable: true })
+  @Column({
+    type: 'enum',
+    enum: StatusKyc,
+    default: StatusKyc.CREATED,
+    nullable: true,
+  })
   statusKyc: StatusKyc;
 
   @Column({ nullable: true, default: null })
@@ -56,7 +70,7 @@ export class IndividualCustomer {
   @Column({ type: 'boolean', nullable: true, default: false })
   manualValidation: boolean;
 
-  @Column({ type: 'boolean', default: true, nullable: true})
+  @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
 
   @Column({ type: 'boolean', default: false, nullable: true })
@@ -65,14 +79,14 @@ export class IndividualCustomer {
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   createdAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   updatedAt?: Date;
 }

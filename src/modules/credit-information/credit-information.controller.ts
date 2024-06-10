@@ -21,7 +21,9 @@ import { CreateCreditInformationDto } from './dtos/create.credit-information.dto
 @ApiTags('Credit-Information')
 @Controller('credit-information')
 export class CreditInformationController {
-  constructor(private readonly creditInformationService: CreditInformationService) {}
+  constructor(
+    private readonly creditInformationService: CreditInformationService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all Credit Informations' })
@@ -43,8 +45,12 @@ export class CreditInformationController {
     status: 201,
     description: 'The Credit Information has been successfully created.',
   })
-  async create(@Body() creditInformationData: CreateCreditInformationDto): Promise<ResponseDTO> {
-    return { data: this.creditInformationService.create(creditInformationData) }
+  async create(
+    @Body() creditInformationData: CreateCreditInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: this.creditInformationService.create(creditInformationData),
+    };
   }
 
   @Put(':id')

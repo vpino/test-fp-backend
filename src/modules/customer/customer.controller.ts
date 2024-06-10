@@ -28,7 +28,7 @@ import { UpdateKycDto } from './dtos/update.kyc.dto';
 @ApiTags('Customer')
 @Controller('customer')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) { }
+  constructor(private readonly customerService: CustomerService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -41,12 +41,15 @@ export class CustomerController {
   @SkipJwtAuth()
   @Get('/kycRequirements')
   @ApiOperation({
-    summary: 'List KYC Requirements'
+    summary: 'List KYC Requirements',
   })
   async getKycRequirements(
-    @Query(new ValidationPipe({ transform: true })) kycRequirements: kycRequirements,
+    @Query(new ValidationPipe({ transform: true }))
+    kycRequirements: kycRequirements,
   ): Promise<ResponseDTO> {
-    return await this.customerService.getKycRequirements(kycRequirements.country)
+    return await this.customerService.getKycRequirements(
+      kycRequirements.country,
+    );
   }
 
   @SkipJwtAuth()
@@ -65,7 +68,7 @@ export class CustomerController {
     description: 'The customer has been successfully created.',
   })
   async create(@Body() Customer: CreateCustomerDto): Promise<ResponseDTO> {
-    return { data: await this.customerService.save(Customer) }
+    return { data: await this.customerService.save(Customer) };
   }
 
   @SkipJwtAuth()
@@ -114,10 +117,13 @@ export class CustomerController {
     @Param('customerId') customerId: string,
   ): Promise<ResponseDTO> {
     try {
-      return await this.customerService.updateKyc(body.kycUpdateSubmission, customerId, body.submissionId);
+      return await this.customerService.updateKyc(
+        body.kycUpdateSubmission,
+        customerId,
+        body.submissionId,
+      );
     } catch (error) {
-      return error
+      return error;
     }
   }
-
 }

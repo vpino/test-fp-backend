@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { EnhancedPaymentDataController } from './enhanced-payment-data.controller';
 import { EnhancedPaymentDataService } from './enhanced-payment-data.service';
@@ -12,7 +11,9 @@ describe('EnhancedPaymentDataController', () => {
       providers: [EnhancedPaymentDataService],
     }).compile();
 
-    controller = module.get<EnhancedPaymentDataController>(EnhancedPaymentDataController);
+    controller = module.get<EnhancedPaymentDataController>(
+      EnhancedPaymentDataController,
+    );
   });
 
   it('should be defined', () => {

@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,9 @@ import { UpdateEnhancedPaymentDataDto } from './dtos/update.enhanced-payment-dat
 @ApiTags('EnhancedPaymentData')
 @Controller('enhanced-payment-data')
 export class EnhancedPaymentDataController {
-  constructor(private readonly enhancedPaymentDataService: EnhancedPaymentDataService) { }
+  constructor(
+    private readonly enhancedPaymentDataService: EnhancedPaymentDataService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
@@ -49,8 +50,12 @@ export class EnhancedPaymentDataController {
     status: 201,
     description: 'The EnhancedPaymentData has been successfully created.',
   })
-  async create(@Body() enhancedPaymentData: CreateEnhancedPaymentDataDto): Promise<ResponseDTO> {
-    return { data: await this.enhancedPaymentDataService.create(enhancedPaymentData) }
+  async create(
+    @Body() enhancedPaymentData: CreateEnhancedPaymentDataDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.enhancedPaymentDataService.create(enhancedPaymentData),
+    };
   }
 
   @SkipJwtAuth()
@@ -64,7 +69,10 @@ export class EnhancedPaymentDataController {
     @Param('id') id: string,
     @Body() enhancedPaymentData: UpdateEnhancedPaymentDataDto,
   ): Promise<ResponseDTO> {
-    return await this.enhancedPaymentDataService.update(id, enhancedPaymentData);
+    return await this.enhancedPaymentDataService.update(
+      id,
+      enhancedPaymentData,
+    );
   }
 
   @Delete(':id')

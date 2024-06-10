@@ -6,4 +6,3 @@ export interface IUserRisk {
   riskID: string;
   riskTier: string;
 }
-

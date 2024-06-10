@@ -7,7 +7,8 @@ import { IndividualCustomer } from './entities/individual-customer.entity';
 @Injectable()
 export class IndividualCustomerService extends CrudService<IndividualCustomer> {
   constructor(
-    @InjectRepository(IndividualCustomer) private individualCustomerRepository: Repository<IndividualCustomer>,
+    @InjectRepository(IndividualCustomer)
+    private individualCustomerRepository: Repository<IndividualCustomer>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(individualCustomerRepository, 'id', dataSourceInject);

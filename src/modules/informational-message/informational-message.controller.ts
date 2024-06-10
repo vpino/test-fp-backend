@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,9 @@ import { UpdateInformationalMessageDto } from './dtos/update.informational-messa
 @ApiTags('InformationalMessage')
 @Controller('informational-message')
 export class InformationalMessageController {
-  constructor(private readonly informationalMessageService: InformationalMessageService) { }
+  constructor(
+    private readonly informationalMessageService: InformationalMessageService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
@@ -49,8 +50,12 @@ export class InformationalMessageController {
     status: 201,
     description: 'The InformationalMessage has been successfully created.',
   })
-  async create(@Body() informationalMessage: CreateInformationalMessageDto): Promise<ResponseDTO> {
-    return { data: await this.informationalMessageService.create(informationalMessage) }
+  async create(
+    @Body() informationalMessage: CreateInformationalMessageDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.informationalMessageService.create(informationalMessage),
+    };
   }
 
   @SkipJwtAuth()
@@ -64,7 +69,10 @@ export class InformationalMessageController {
     @Param('id') id: string,
     @Body() informationalMessage: UpdateInformationalMessageDto,
   ): Promise<ResponseDTO> {
-    return await this.informationalMessageService.update(id, informationalMessage);
+    return await this.informationalMessageService.update(
+      id,
+      informationalMessage,
+    );
   }
 
   @Delete(':id')

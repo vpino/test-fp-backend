@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateOfacDto } from './dtos/update.ofac.dto';
 @ApiTags('Ofac')
 @Controller('ofac')
 export class OfacController {
-  constructor(private readonly ofacService: OfacService) { }
+  constructor(private readonly ofacService: OfacService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class OfacController {
     description: 'The Ofac has been successfully created.',
   })
   async create(@Body() ofac: CreateOfacDto): Promise<ResponseDTO> {
-    return { data: await this.ofacService.create(ofac) }
+    return { data: await this.ofacService.create(ofac) };
   }
 
   @SkipJwtAuth()

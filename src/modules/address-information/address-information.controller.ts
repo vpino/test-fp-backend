@@ -5,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -23,14 +23,16 @@ import { AddressInformationService } from './address-information.service';
 @ApiTags('Address Information')
 @Controller('address-information')
 export class AddressInformationController {
-  constructor(private readonly addressInformationService : AddressInformationService) { }
+  constructor(
+    private readonly addressInformationService: AddressInformationService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
   @ApiOperation({ summary: 'Get all Address Information' })
   @ApiResponse({ status: 200, description: 'Return all Address Information' })
   async getAll(): Promise<ResponseDTO> {
-    return await this.addressInformationService .getAll({});
+    return await this.addressInformationService.getAll({});
   }
 
   @SkipJwtAuth()
@@ -38,7 +40,7 @@ export class AddressInformationController {
   @ApiOperation({ summary: 'Get a Address Information by id' })
   @ApiResponse({ status: 200, description: 'Return a Address Information' })
   async getOne(@Param('id') id: string): Promise<ResponseDTO> {
-    return await this.addressInformationService .findOne({ id });
+    return await this.addressInformationService.findOne({ id });
   }
 
   @SkipJwtAuth()
@@ -48,8 +50,12 @@ export class AddressInformationController {
     status: 201,
     description: 'The Address Information has been successfully created.',
   })
-  async create(@Body() addressInformation: CreateAddressInformationDto): Promise<ResponseDTO> {
-    return { data: await this.addressInformationService .create(addressInformation ) }
+  async create(
+    @Body() addressInformation: CreateAddressInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.addressInformationService.create(addressInformation),
+    };
   }
 
   @SkipJwtAuth()
@@ -63,7 +69,7 @@ export class AddressInformationController {
     @Param('id') id: string,
     @Body() addressInformation: UpdateAddressInformationDto,
   ): Promise<ResponseDTO> {
-    return await this.addressInformationService .update(id, addressInformation );
+    return await this.addressInformationService.update(id, addressInformation);
   }
 
   @Delete(':id')
@@ -73,7 +79,6 @@ export class AddressInformationController {
     description: 'The Address Information has been successfully deleted.',
   })
   async delete(@Param('id') id: string): Promise<ResponseDTO> {
-    return await this.addressInformationService .deleteOne({ _id: id });
+    return await this.addressInformationService.deleteOne({ _id: id });
   }
-
 }

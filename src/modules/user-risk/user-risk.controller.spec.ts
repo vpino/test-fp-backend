@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserRiskController } from './user-risk.controller';
 import { UserRiskService } from './user-risk.service';

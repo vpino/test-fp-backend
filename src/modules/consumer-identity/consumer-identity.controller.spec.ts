@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConsumerIdentityController } from './consumer-identity.controller';
 import { ConsumerIdentityService } from './consumer-identity.service';
@@ -12,7 +11,9 @@ describe('ConsumerIdentityController', () => {
       providers: [ConsumerIdentityService],
     }).compile();
 
-    controller = module.get<ConsumerIdentityController>(ConsumerIdentityController);
+    controller = module.get<ConsumerIdentityController>(
+      ConsumerIdentityController,
+    );
   });
 
   it('should be defined', () => {

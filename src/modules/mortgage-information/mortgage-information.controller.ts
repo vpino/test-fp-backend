@@ -21,7 +21,9 @@ import { MortgageInformationService } from './mortgage-information.service';
 @ApiTags('Mortgage-Information')
 @Controller('mortgage-information')
 export class MortgageInformationController {
-  constructor(private readonly mortgageInformationService: MortgageInformationService) {}
+  constructor(
+    private readonly mortgageInformationService: MortgageInformationService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all Mortgage Informations' })
@@ -43,8 +45,12 @@ export class MortgageInformationController {
     status: 201,
     description: 'The Mortgage Information has been successfully created.',
   })
-  async create(@Body() mortgageInformationData: CreateMortgageInformationDto): Promise<ResponseDTO> {
-    return { data: this.mortgageInformationService.create(mortgageInformationData) }
+  async create(
+    @Body() mortgageInformationData: CreateMortgageInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: this.mortgageInformationService.create(mortgageInformationData),
+    };
   }
 
   @Put(':id')

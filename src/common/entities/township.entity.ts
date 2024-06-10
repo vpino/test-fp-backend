@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { State } from './state.entity';
 import { Parish } from './parish.entity';
 
@@ -13,29 +21,29 @@ export class Township {
   @Column({ type: 'varchar', length: 255, nullable: true })
   name: string;
 
-  @ManyToOne(() => State, state => state.townships, { nullable: true })
+  @ManyToOne(() => State, (state) => state.townships, { nullable: true })
   state: State;
 
-  @OneToMany(() => Parish, parish => parish.township)
+  @OneToMany(() => Parish, (parish) => parish.township)
   parishes: Parish[];
 
-  @Column({ type: 'boolean', default: true,  nullable: true})
+  @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
 
-  @Column({ type: 'boolean', default: false,  nullable: true })
+  @Column({ type: 'boolean', default: false, nullable: true })
   isDeleted: boolean;
 
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   createdAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   updatedAt?: Date;
 }

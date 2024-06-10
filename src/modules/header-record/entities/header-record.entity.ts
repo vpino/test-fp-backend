@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class HeaderRecord {
@@ -26,23 +32,23 @@ export class HeaderRecord {
   @Column({ type: 'varchar', length: 8, nullable: true })
   y2kReportedDate: string;
 
-  @Column({ type: 'boolean', default: true,  nullable: true})
+  @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
 
-  @Column({ type: 'boolean', default: false,  nullable: true })
+  @Column({ type: 'boolean', default: false, nullable: true })
   isDeleted: boolean;
 
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   createdAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   updatedAt?: Date;
 }

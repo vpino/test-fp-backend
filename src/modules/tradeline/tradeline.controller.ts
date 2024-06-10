@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateTradelineDto } from './dtos/update.tradeline.dto';
 @ApiTags('Tradeline')
 @Controller('tradeline')
 export class TradelineController {
-  constructor(private readonly tradelineService: TradelineService) { }
+  constructor(private readonly tradelineService: TradelineService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class TradelineController {
     description: 'The Tradeline has been successfully created.',
   })
   async create(@Body() tradeline: CreateTradelineDto): Promise<ResponseDTO> {
-    return { data: await this.tradelineService.create(tradeline) }
+    return { data: await this.tradelineService.create(tradeline) };
   }
 
   @SkipJwtAuth()

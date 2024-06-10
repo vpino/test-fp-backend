@@ -2,21 +2,27 @@ import {
   Injectable,
   BadRequestException,
   ConflictException,
-  Inject
+  Inject,
 } from '@nestjs/common';
-import { Repository, FindManyOptions, DeepPartial, FindOptionsOrder, FindOptionsSelect, DataSource } from 'typeorm';
+import {
+  Repository,
+  FindManyOptions,
+  DeepPartial,
+  FindOptionsOrder,
+  FindOptionsSelect,
+  DataSource,
+} from 'typeorm';
 import { ResponseDTO } from '../../dtos/response.dto';
 import { ParamsDTO } from '../../dtos/params.dto';
 import { MESSAGES } from '../../constans/messages';
 
 @Injectable()
 export class CrudService<T> {
-
   constructor(
     protected readonly repository: Repository<T>,
     private readonly key: string = 'id',
     public dataSource: DataSource,
-  ) { }
+  ) {}
 
   async count(filter: any = {}): Promise<number> {
     try {
@@ -51,15 +57,19 @@ export class CrudService<T> {
     }
   }
 
-  async findOne(data: any, fieldSelected?: Record<string, boolean>, relations: string[] = []): Promise<ResponseDTO> {
+  async findOne(
+    data: any,
+    fieldSelected?: Record<string, boolean>,
+    relations: string[] = [],
+  ): Promise<ResponseDTO> {
     try {
       const response = await this.repository.findOne({
         where: data,
         select: this.mapSelectFields(fieldSelected as any) ?? undefined,
-        relations
+        relations,
       });
 
-      return { data: response }
+      return { data: response };
     } catch (error) {
       throw error;
     }
@@ -72,7 +82,9 @@ export class CrudService<T> {
         if (instance['deleted'] !== undefined && !instance['deleted']) {
           throw new ConflictException(MESSAGES.DUPLICATED_ERROR);
         }
-        return (await this.update(instance[this.key], { ...data, deleted: false })).data as T
+        return (
+          await this.update(instance[this.key], { ...data, deleted: false })
+        ).data as T;
       }
     }
 
@@ -86,7 +98,11 @@ export class CrudService<T> {
     }
   }
 
-  async update(id: string, data: DeepPartial<T>, validation?: any): Promise<ResponseDTO> {
+  async update(
+    id: string,
+    data: DeepPartial<T>,
+    validation?: any,
+  ): Promise<ResponseDTO> {
     const filter = { [this.key]: id };
     if (validation) {
       validation[this.key] = { $ne: id };
@@ -121,14 +137,17 @@ export class CrudService<T> {
   }
 
   private mapSelectFields(fields: (keyof T)[]): FindOptionsSelect<T> {
-    if (!fields) return {} as FindOptionsSelect<T>
+    if (!fields) return {} as FindOptionsSelect<T>;
     return fields.reduce((acc, field) => {
       (acc as any)[field] = true;
       return acc;
     }, {} as FindOptionsSelect<T>);
   }
 
-  async createTransactional(data: DeepPartial<T>, validation?: any): Promise<T> {
+  async createTransactional(
+    data: DeepPartial<T>,
+    validation?: any,
+  ): Promise<T> {
     const entityManager = this.dataSource.manager;
     const queryRunner = entityManager.connection.createQueryRunner();
 
@@ -148,5 +167,4 @@ export class CrudService<T> {
       await queryRunner.release();
     }
   }
-
 }

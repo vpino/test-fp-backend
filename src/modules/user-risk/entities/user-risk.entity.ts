@@ -9,11 +9,17 @@ import { ProviderInformation } from 'src/modules/provider-information/entities/p
 import { PublicRecord } from 'src/modules/public-record/entities/public-record.entity';
 import { RiskModel } from 'src/modules/risk-model/entities/risk-model.entity';
 import { Tradeline } from 'src/modules/tradeline/entities/tradeline.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class UserRisk {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -35,56 +41,70 @@ export class UserRisk {
   @Column({ nullable: true })
   riskTier: string;
 
-  @OneToMany(() => ProviderInformation, provider => provider.userRisk, { nullable: true})
+  @OneToMany(() => ProviderInformation, (provider) => provider.userRisk, {
+    nullable: true,
+  })
   providerInformation: ProviderInformation[];
 
-  @OneToMany(() => AddressInformation, address => address.userRisk, { nullable: true})
+  @OneToMany(() => AddressInformation, (address) => address.userRisk, {
+    nullable: true,
+  })
   addressInformation: AddressInformation[];
 
-  @OneToMany(() => ConsumerIdentity, consumer => consumer.userRisk, { nullable: true})
+  @OneToMany(() => ConsumerIdentity, (consumer) => consumer.userRisk, {
+    nullable: true,
+  })
   consumerIdentity: ConsumerIdentity[];
 
-  @OneToMany(() => EmploymentInformation, employment => employment.userRisk, { nullable: true})
+  @OneToMany(() => EmploymentInformation, (employment) => employment.userRisk, {
+    nullable: true,
+  })
   employmentInformation: EmploymentInformation[];
 
-  @OneToMany(() => InformationalMessage, message => message.userRisk, { nullable: true})
+  @OneToMany(() => InformationalMessage, (message) => message.userRisk, {
+    nullable: true,
+  })
   informationalMessage: InformationalMessage[];
 
-  @OneToMany(() => Inquiry, inquiry => inquiry.userRisk)
+  @OneToMany(() => Inquiry, (inquiry) => inquiry.userRisk)
   inquiry: Inquiry[];
 
-  @OneToMany(() => Ofac, ofac => ofac.userRisk, { nullable: true})
+  @OneToMany(() => Ofac, (ofac) => ofac.userRisk, { nullable: true })
   ofac: Ofac[];
 
-  @OneToMany(() => PublicRecord, record => record.userRisk, { nullable: true})
+  @OneToMany(() => PublicRecord, (record) => record.userRisk, {
+    nullable: true,
+  })
   publicRecord: PublicRecord[];
 
-  @OneToMany(() => RiskModel, model => model.userRisk, { nullable: true})
+  @OneToMany(() => RiskModel, (model) => model.userRisk, { nullable: true })
   riskModel: RiskModel[];
 
-  @OneToMany(() => Tradeline, tradeline => tradeline.userRisk, { nullable: true})
+  @OneToMany(() => Tradeline, (tradeline) => tradeline.userRisk, {
+    nullable: true,
+  })
   tradeline: Tradeline[];
 
-  @OneToMany(() => EndTotals, totals => totals.userRisk, { nullable: true})
+  @OneToMany(() => EndTotals, (totals) => totals.userRisk, { nullable: true })
   endTotals: EndTotals[];
 
-  @Column({ type: 'boolean', default: true,  nullable: true })
+  @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
 
-  @Column({ type: 'boolean', default: false,  nullable: true })
+  @Column({ type: 'boolean', default: false, nullable: true })
   isDeleted: boolean;
 
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   createdAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   updatedAt?: Date;
 }

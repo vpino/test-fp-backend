@@ -21,7 +21,9 @@ import { EducationInformationService } from './education-information.service';
 @ApiTags('Education-Information')
 @Controller('education-information')
 export class EducationInformationController {
-  constructor(private readonly educationInformationService: EducationInformationService) {}
+  constructor(
+    private readonly educationInformationService: EducationInformationService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all Education Information' })
@@ -43,8 +45,12 @@ export class EducationInformationController {
     status: 201,
     description: 'The Education Information has been successfully created.',
   })
-  async create(@Body() educationInformationData: CreateEducationInformationDto): Promise<ResponseDTO> {
-    return { data: this.educationInformationService.create(educationInformationData) }
+  async create(
+    @Body() educationInformationData: CreateEducationInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: this.educationInformationService.create(educationInformationData),
+    };
   }
 
   @Put(':id')
@@ -57,7 +63,10 @@ export class EducationInformationController {
     @Param('id') id: string,
     @Body() educationInformationData: CreateEducationInformationDto,
   ): Promise<ResponseDTO> {
-    return this.educationInformationService.update(id, educationInformationData);
+    return this.educationInformationService.update(
+      id,
+      educationInformationData,
+    );
   }
 
   @Delete(':id')

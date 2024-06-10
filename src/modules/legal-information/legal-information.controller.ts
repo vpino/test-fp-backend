@@ -21,7 +21,9 @@ import { CreateLegalInformationDto } from './dtos/create.legal-information.dto';
 @ApiTags('Legal-Information')
 @Controller('legal-information')
 export class LegalInformationController {
-  constructor(private readonly legalInformationService: LegalInformationService) {}
+  constructor(
+    private readonly legalInformationService: LegalInformationService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all Legal Information' })
@@ -43,8 +45,10 @@ export class LegalInformationController {
     status: 201,
     description: 'The Legal Information has been successfully created.',
   })
-  async create(@Body() legalInformationData: CreateLegalInformationDto): Promise<ResponseDTO> {
-    return { data: this.legalInformationService.create(legalInformationData) }
+  async create(
+    @Body() legalInformationData: CreateLegalInformationDto,
+  ): Promise<ResponseDTO> {
+    return { data: this.legalInformationService.create(legalInformationData) };
   }
 
   @Put(':id')

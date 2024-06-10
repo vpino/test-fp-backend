@@ -1,8 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsBoolean, IsString, IsNumber, IsDate, ArrayNotEmpty } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsBoolean,
+  IsString,
+  IsNumber,
+  IsDate,
+  ArrayNotEmpty,
+} from 'class-validator';
 
 export class CreateOfacDto {
-
   @ApiProperty()
   @IsString()
   messageNumber: string;
@@ -10,5 +16,4 @@ export class CreateOfacDto {
   @ApiProperty()
   @IsString()
   messageText: string;
-
 }

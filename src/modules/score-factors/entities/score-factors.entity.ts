@@ -1,9 +1,15 @@
 import { RiskModel } from 'src/modules/risk-model/entities/risk-model.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+} from 'typeorm';
 
 @Entity()
 export class ScoreFactors {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -13,26 +19,26 @@ export class ScoreFactors {
   @Column({ nullable: true })
   code: string;
 
-  @ManyToOne(() => RiskModel, riskModel => riskModel.scoreFactors)
+  @ManyToOne(() => RiskModel, (riskModel) => riskModel.scoreFactors)
   riskModel: RiskModel;
 
-  @Column({ type: 'boolean', default: true,  nullable: true })
+  @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
 
-  @Column({ type: 'boolean', default: false,  nullable: true })
+  @Column({ type: 'boolean', default: false, nullable: true })
   isDeleted: boolean;
 
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   createdAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   updatedAt?: Date;
 }

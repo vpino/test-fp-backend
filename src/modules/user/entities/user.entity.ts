@@ -1,4 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, Index, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  Index,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { UserStatusEnum } from '../../../common/enums/user.enum';
@@ -21,31 +31,31 @@ export class User {
     type: 'enum',
     enum: UserStatusEnum,
     default: UserStatusEnum.NOT_VERIFIED,
-    nullable: true
+    nullable: true,
   })
   status: UserStatusEnum;
 
-  @ManyToOne(() => Persona, persona => persona.users, { eager: true })
+  @ManyToOne(() => Persona, (persona) => persona.users, { eager: true })
   @JoinColumn({ name: 'personaId' })
   persona: Persona;
 
-  @Column({ type: 'boolean', default: true,  nullable: true})
+  @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
 
-  @Column({ type: 'boolean', default: false,  nullable: true })
+  @Column({ type: 'boolean', default: false, nullable: true })
   isDeleted: boolean;
 
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   createdAt?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true
+    nullable: true,
   })
   updatedAt?: Date;
 

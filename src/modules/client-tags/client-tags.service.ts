@@ -7,7 +7,8 @@ import { ClientTags } from './entities/client-tags.entity';
 @Injectable()
 export class ClientTagsService extends CrudService<ClientTags> {
   constructor(
-    @InjectRepository(ClientTags) private clientTagsRepository: Repository<ClientTags>,
+    @InjectRepository(ClientTags)
+    private clientTagsRepository: Repository<ClientTags>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(clientTagsRepository, 'id', dataSourceInject);

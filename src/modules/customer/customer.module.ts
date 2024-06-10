@@ -8,11 +8,7 @@ import { IndividualCustomerModule } from '../individual-customer/individual-cust
 @Module({
   providers: [CustomerService],
   controllers: [CustomerController],
-  imports: [
-    TypeOrmModule.forFeature([Customer]),
-    IndividualCustomerModule
-  ],
+  imports: [TypeOrmModule.forFeature([Customer]), IndividualCustomerModule],
   exports: [CustomerService],
-
 })
 export class CustomerModule {}

@@ -12,5 +12,4 @@ export class CreateEmploymentInformationDto {
 
   @IsNotEmpty()
   source: string;
-
 }

@@ -46,7 +46,7 @@ export class LoanController {
     description: 'The loan has been successfully created.',
   })
   async create(@Body() loanData: CreateLoanDto): Promise<ResponseDTO> {
-    return { data: await this.loanService.generate(loanData) }
+    return { data: await this.loanService.generate(loanData) };
   }
 
   @Put('/personal-loan/:id')

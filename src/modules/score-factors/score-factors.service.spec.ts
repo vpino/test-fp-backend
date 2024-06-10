@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { ScoreFactorsService } from './score-factors.service';
 

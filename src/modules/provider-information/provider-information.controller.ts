@@ -5,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -23,7 +23,9 @@ import { UpdateProviderInformationDto } from './dtos/update.provider-information
 @ApiTags('Provider Information')
 @Controller('provider-information')
 export class ProviderInformationController {
-  constructor(private readonly providerInformationService: ProviderInformationService) { }
+  constructor(
+    private readonly providerInformationService: ProviderInformationService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
@@ -48,8 +50,12 @@ export class ProviderInformationController {
     status: 201,
     description: 'The Provider Information has been successfully created.',
   })
-  async create(@Body() providerInformation: CreateProviderInformationDto): Promise<ResponseDTO> {
-    return { data: await this.providerInformationService.create(providerInformation) }
+  async create(
+    @Body() providerInformation: CreateProviderInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.providerInformationService.create(providerInformation),
+    };
   }
 
   @SkipJwtAuth()
@@ -63,7 +69,10 @@ export class ProviderInformationController {
     @Param('id') id: string,
     @Body() providerInformation: UpdateProviderInformationDto,
   ): Promise<ResponseDTO> {
-    return await this.providerInformationService.update(id, providerInformation);
+    return await this.providerInformationService.update(
+      id,
+      providerInformation,
+    );
   }
 
   @Delete(':id')
@@ -75,5 +84,4 @@ export class ProviderInformationController {
   async delete(@Param('id') id: string): Promise<ResponseDTO> {
     return await this.providerInformationService.deleteOne({ _id: id });
   }
-
 }

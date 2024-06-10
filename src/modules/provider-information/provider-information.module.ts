@@ -7,10 +7,7 @@ import { ProviderInformation } from './entities/provider-information.entity';
 @Module({
   providers: [ProviderInformationService],
   controllers: [ProviderInformationController],
-  imports: [
-    TypeOrmModule.forFeature([ProviderInformation]),
-  ],
+  imports: [TypeOrmModule.forFeature([ProviderInformation])],
   exports: [ProviderInformationService],
-
 })
 export class ProviderInformationModule {}

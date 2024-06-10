@@ -21,11 +21,16 @@ import { CreateFinancialInformationDto } from './dtos/create.financial-informati
 @ApiTags('Financial-Information')
 @Controller('financial-information')
 export class FinancialInformationController {
-  constructor(private readonly financialInformationService: FinancialInformationService) {}
+  constructor(
+    private readonly financialInformationService: FinancialInformationService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all Financial Informations' })
-  @ApiResponse({ status: 200, description: 'Return all Financial Informations' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return all Financial Informations',
+  })
   async getAll(): Promise<ResponseDTO> {
     return this.financialInformationService.getAll({});
   }
@@ -43,10 +48,15 @@ export class FinancialInformationController {
     status: 201,
     description: 'The Financial Information has been successfully created.',
   })
-  async create(@Body() createFinancialInformationData: CreateFinancialInformationDto): Promise<ResponseDTO> {
-    return { data: this.financialInformationService.create(createFinancialInformationData) }
+  async create(
+    @Body() createFinancialInformationData: CreateFinancialInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: this.financialInformationService.create(
+        createFinancialInformationData,
+      ),
+    };
   }
-
 
   @Put(':id')
   @ApiOperation({ summary: 'Update a Financial Information' })
@@ -58,7 +68,10 @@ export class FinancialInformationController {
     @Param('id') id: string,
     @Body() createFinancialInformationData: CreateFinancialInformationDto,
   ): Promise<ResponseDTO> {
-    return this.financialInformationService.update(id, createFinancialInformationData);
+    return this.financialInformationService.update(
+      id,
+      createFinancialInformationData,
+    );
   }
 
   @Delete(':id')

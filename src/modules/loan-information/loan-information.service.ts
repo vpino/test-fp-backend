@@ -7,7 +7,8 @@ import { LoanInformation } from './entities/loan-information.entity';
 @Injectable()
 export class LoanInformationService extends CrudService<LoanInformation> {
   constructor(
-    @InjectRepository(LoanInformation) private loanInformationRepository: Repository<LoanInformation>,
+    @InjectRepository(LoanInformation)
+    private loanInformationRepository: Repository<LoanInformation>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(loanInformationRepository, 'id', dataSourceInject);

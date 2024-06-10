@@ -7,7 +7,8 @@ import { HeaderRecord } from './entities/header-record.entity';
 @Injectable()
 export class HeaderRecordService extends CrudService<HeaderRecord> {
   constructor(
-    @InjectRepository(HeaderRecord) private headerRecordRepository: Repository<HeaderRecord>,
+    @InjectRepository(HeaderRecord)
+    private headerRecordRepository: Repository<HeaderRecord>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(headerRecordRepository, 'id', dataSourceInject);

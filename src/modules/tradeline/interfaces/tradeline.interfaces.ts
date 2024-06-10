@@ -23,4 +23,3 @@ export interface ITradeline {
   subscriberName: string;
   terms: string;
 }
-

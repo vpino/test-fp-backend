@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { EndTotalsController } from './end-totals.controller';
 import { EndTotalsService } from './end-totals.service';

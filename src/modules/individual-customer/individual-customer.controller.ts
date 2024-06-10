@@ -5,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -23,7 +23,9 @@ import { SkipJwtAuth } from 'src/common/decorators/skip-guard.decorator';
 @ApiTags('Individual Customer')
 @Controller('individual-customer')
 export class IndividualCustomerController {
-  constructor(private readonly individualCustomerService: IndividualCustomerService) { }
+  constructor(
+    private readonly individualCustomerService: IndividualCustomerService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
@@ -46,8 +48,10 @@ export class IndividualCustomerController {
     status: 201,
     description: 'The individual customer has been successfully created.',
   })
-  async create(@Body() individualCustomer: CreateIndividualCustomerDto): Promise<ResponseDTO> {
-    return { data: this.individualCustomerService.create(individualCustomer) }
+  async create(
+    @Body() individualCustomer: CreateIndividualCustomerDto,
+  ): Promise<ResponseDTO> {
+    return { data: this.individualCustomerService.create(individualCustomer) };
   }
 
   @Put(':id')
@@ -72,5 +76,4 @@ export class IndividualCustomerController {
   async delete(@Param('id') id: string): Promise<ResponseDTO> {
     return this.individualCustomerService.deleteOne({ _id: id });
   }
-
 }

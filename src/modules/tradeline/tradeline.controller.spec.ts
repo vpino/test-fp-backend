@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { TradelineController } from './tradeline.controller';
 import { TradelineService } from './tradeline.service';

@@ -18,7 +18,7 @@ export class ParishService extends CrudService<Parish> {
   async getParishesByTownship(township: string) {
     try {
       const parishes = await this.getAll({
-        filter: { township: new Types.ObjectId(township) }
+        filter: { township: new Types.ObjectId(township) },
       });
 
       if (!parishes || !parishes.data) {

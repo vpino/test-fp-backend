@@ -7,10 +7,7 @@ import { MortgageInformation } from './entities/mortgage-information.entity';
 @Module({
   providers: [MortgageInformationService],
   controllers: [MortgageInformationController],
-  imports: [
-    TypeOrmModule.forFeature([MortgageInformation])
-  ],
+  imports: [TypeOrmModule.forFeature([MortgageInformation])],
   exports: [MortgageInformationService],
-
 })
 export class MortgageInformationModule {}

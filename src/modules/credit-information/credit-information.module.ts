@@ -7,10 +7,7 @@ import { CreditInformationController } from './credit-information.controller';
 @Module({
   providers: [CreditInformationService],
   controllers: [CreditInformationController],
-  imports: [
-    TypeOrmModule.forFeature([CreditInformation])
-  ],
+  imports: [TypeOrmModule.forFeature([CreditInformation])],
   exports: [CreditInformationService],
-
 })
 export class CreditInformationModule {}

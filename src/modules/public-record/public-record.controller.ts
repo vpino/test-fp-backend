@@ -5,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -23,7 +23,7 @@ import { UpdatePublicRecordDto } from './dtos/update.public-record.dto';
 @ApiTags('PublicRecord')
 @Controller('public-record')
 export class PublicRecordController {
-  constructor(private readonly publicRecordService: PublicRecordService) { }
+  constructor(private readonly publicRecordService: PublicRecordService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -48,8 +48,10 @@ export class PublicRecordController {
     status: 201,
     description: 'The PublicRecord has been successfully created.',
   })
-  async create(@Body() publicRecord: CreatePublicRecordDto): Promise<ResponseDTO> {
-    return { data: await this.publicRecordService.create(publicRecord) }
+  async create(
+    @Body() publicRecord: CreatePublicRecordDto,
+  ): Promise<ResponseDTO> {
+    return { data: await this.publicRecordService.create(publicRecord) };
   }
 
   @SkipJwtAuth()

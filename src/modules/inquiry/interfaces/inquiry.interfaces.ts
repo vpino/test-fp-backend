@@ -6,4 +6,3 @@ export interface IInquiry {
   terms: string;
   type: string;
 }
-

@@ -24,7 +24,7 @@ export class MasterTablesController {
     private readonly stateService: StateService,
     private readonly townshipService: TownshipService,
     private readonly parishService: ParishService,
-    private readonly productTypeService: ProductTypeService
+    private readonly productTypeService: ProductTypeService,
   ) {}
 
   @SkipJwtAuth()
@@ -123,10 +123,11 @@ export class MasterTablesController {
   @Post('product-type')
   @ApiOperation({ summary: 'Create a product type' })
   @ApiResponse({ status: 200, description: 'Return a product type' })
-  async createProductType(@Body() productType: CreateProductTypeDto): Promise<ResponseDTO> {
-    return { data: await this.productTypeService.create(productType) }
+  async createProductType(
+    @Body() productType: CreateProductTypeDto,
+  ): Promise<ResponseDTO> {
+    return { data: await this.productTypeService.create(productType) };
   }
-
 
   @Get('product-type/:id')
   @ApiOperation({ summary: 'Get a product type by id' })

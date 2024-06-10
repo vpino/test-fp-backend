@@ -9,4 +9,3 @@ export interface IEnhancedPaymentData {
   originalLoanAmount: string;
   paymentLevelDate: string;
 }
-

@@ -9,5 +9,4 @@ export class CreateInformationalMessageDto {
 
   @IsNotEmpty()
   messageText: string;
-
 }

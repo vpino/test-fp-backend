@@ -7,10 +7,7 @@ import { AddressInformationController } from './address-information.controller';
 @Module({
   providers: [AddressInformationService],
   controllers: [AddressInformationController],
-  imports: [
-    TypeOrmModule.forFeature([AddressInformation]),
-  ],
+  imports: [TypeOrmModule.forFeature([AddressInformation])],
   exports: [AddressInformationService],
-
 })
 export class AddressInformationModule {}

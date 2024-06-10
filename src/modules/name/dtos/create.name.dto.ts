@@ -9,5 +9,4 @@ export class CreateNameDto {
 
   @IsNotEmpty()
   type: string;
-
 }

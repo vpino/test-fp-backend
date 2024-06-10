@@ -1,6 +1,6 @@
 export enum TypeCustomer {
   BUSINESS = 'BUSINESS',
-  INDIVIDUAL = 'INDIVIDUAL'
+  INDIVIDUAL = 'INDIVIDUAL',
 }
 
 export enum StatusKyc {
@@ -8,5 +8,5 @@ export enum StatusKyc {
   IN_REVIEW = 'IN_REVIEW',
   UPDATE_REQUIRED = 'UPDATE_REQUIRED',
   COMPLETED = 'COMPLETED',
-  FAILED = 'FAILED'
+  FAILED = 'FAILED',
 }

@@ -5,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -23,7 +23,7 @@ import { UpdateHeaderRecordDto } from './dtos/update.header-record.dto';
 @ApiTags('Header Record')
 @Controller('header-record')
 export class HeaderRecordController {
-  constructor(private readonly headerRecordService: HeaderRecordService) { }
+  constructor(private readonly headerRecordService: HeaderRecordService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -48,8 +48,10 @@ export class HeaderRecordController {
     status: 201,
     description: 'The Header Record has been successfully created.',
   })
-  async create(@Body() headerRecord: CreateHeaderRecordDto): Promise<ResponseDTO> {
-    return { data: await this.headerRecordService.create(headerRecord) }
+  async create(
+    @Body() headerRecord: CreateHeaderRecordDto,
+  ): Promise<ResponseDTO> {
+    return { data: await this.headerRecordService.create(headerRecord) };
   }
 
   @SkipJwtAuth()
@@ -75,5 +77,4 @@ export class HeaderRecordController {
   async delete(@Param('id') id: string): Promise<ResponseDTO> {
     return await this.headerRecordService.deleteOne({ _id: id });
   }
-
 }

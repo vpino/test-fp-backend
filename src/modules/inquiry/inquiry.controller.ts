@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateInquiryDto } from './dtos/update.inquiry.dto';
 @ApiTags('Inquiry')
 @Controller('inquiry')
 export class InquiryController {
-  constructor(private readonly inquiryService: InquiryService) { }
+  constructor(private readonly inquiryService: InquiryService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class InquiryController {
     description: 'The Inquiry has been successfully created.',
   })
   async create(@Body() inquiry: CreateInquiryDto): Promise<ResponseDTO> {
-    return { data: await this.inquiryService.create(inquiry) }
+    return { data: await this.inquiryService.create(inquiry) };
   }
 
   @SkipJwtAuth()

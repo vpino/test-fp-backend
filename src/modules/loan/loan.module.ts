@@ -24,9 +24,8 @@ import { ClientTagsModule } from '../client-tags/client-tags.module';
     FinancialInformationModule,
     EducationInformationModule,
     LegalInformationModule,
-    ClientTagsModule
+    ClientTagsModule,
   ],
   exports: [LoanService],
-
 })
 export class LoanModule {}

@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { EnhancedPaymentDataService } from './enhanced-payment-data.service';
 
@@ -10,7 +9,9 @@ describe('EnhancedPaymentDataService', () => {
       providers: [EnhancedPaymentDataService],
     }).compile();
 
-    service = module.get<EnhancedPaymentDataService>(EnhancedPaymentDataService);
+    service = module.get<EnhancedPaymentDataService>(
+      EnhancedPaymentDataService,
+    );
   });
 
   it('should be defined', () => {

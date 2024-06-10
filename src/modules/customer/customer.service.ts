@@ -1,4 +1,11 @@
-import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -16,7 +23,8 @@ import { StatusKyc } from 'src/common/enums/customer.enums';
 @Injectable()
 export class CustomerService extends CrudService<Customer> {
   constructor(
-    @InjectRepository(Customer) private customerRepository: Repository<Customer>,
+    @InjectRepository(Customer)
+    private customerRepository: Repository<Customer>,
     private readonly individualCustomerService: IndividualCustomerService,
     private readonly dataSourceInject: DataSource,
   ) {
@@ -29,18 +37,19 @@ export class CustomerService extends CrudService<Customer> {
 
       if (email?.data) throw new ConflictException('Email already registered');
 
-      const phoneNumber = await this.findOne(
-        { phoneNumber: payload.phoneNumber }
-      );
+      const phoneNumber = await this.findOne({
+        phoneNumber: payload.phoneNumber,
+      });
 
-      if (phoneNumber?.data) throw new ConflictException('Phone number already registered')
+      if (phoneNumber?.data)
+        throw new ConflictException('Phone number already registered');
 
       const newCustomer = await this.customerRepository.create(payload);
       const createdCustomer = await this.customerRepository.save(newCustomer);
 
       const customer: IResponseCustomer = {
         customerId: createdCustomer.id,
-        createdAt: createdCustomer.createdAt
+        createdAt: createdCustomer.createdAt,
       };
 
       return { data: customer };
@@ -55,20 +64,19 @@ export class CustomerService extends CrudService<Customer> {
     const dto = new CreateIndividualCustomerDto();
 
     const countryRequirements = {
-      'BRA': {
+      BRA: {
         required: [],
         notRequired: [],
-        DNI: 'CPF'
+        DNI: 'CPF',
       },
-      'MEX': {
+      MEX: {
         required: [],
         notRequired: [],
-        DNI: 'INE'
+        DNI: 'INE',
       },
     };
 
     for (const key of Object.keys(dto)) {
-
       if (Reflect.getMetadata('dontDisplay', dto, key)) {
         continue;
       }
@@ -78,7 +86,11 @@ export class CustomerService extends CrudService<Customer> {
       const field = {
         fieldName: key,
         required: !Reflect.hasMetadata('optional', dto, key),
-        type: (key.includes('doc')) ? 'FILE_UPLOAD' : key.includes('date') ? 'DATE' : type.toUpperCase()
+        type: key.includes('doc')
+          ? 'FILE_UPLOAD'
+          : key.includes('date')
+            ? 'DATE'
+            : type.toUpperCase(),
       };
 
       kycRequiredFields.push(field);
@@ -86,68 +98,87 @@ export class CustomerService extends CrudService<Customer> {
 
     if (countryRequirements.hasOwnProperty(country)) {
       const requirements = countryRequirements[country];
-      requirements.required.forEach(fieldName => {
-        const field = kycRequiredFields.find(field => field.fieldName === fieldName);
+      requirements.required.forEach((fieldName) => {
+        const field = kycRequiredFields.find(
+          (field) => field.fieldName === fieldName,
+        );
         if (field) {
           field.required = true;
         }
       });
 
-      requirements.notRequired.forEach(fieldName => {
-        kycRequiredFields = kycRequiredFields.filter(field => field.fieldName !== fieldName);
+      requirements.notRequired.forEach((fieldName) => {
+        kycRequiredFields = kycRequiredFields.filter(
+          (field) => field.fieldName !== fieldName,
+        );
       });
     }
 
-    return { data: { kycRequiredFields } }
+    return { data: { kycRequiredFields } };
   }
 
-  async submitKyc(payload: CreateIndividualCustomerDto, customerId: string): Promise<ResponseDTO> {
+  async submitKyc(
+    payload: CreateIndividualCustomerDto,
+    customerId: string,
+  ): Promise<ResponseDTO> {
     try {
       if (!isValidUUID(customerId)) {
         const reasons = {
           message: `${customerId} is invalid`,
           path: 'customerId',
-          validation: 'isInvalid'
+          validation: 'isInvalid',
         };
 
-        throw new HttpException({
-          statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'A logic validation has not been fulfilled',
-          reasons: reasons,
-          code: 'VALIDATION_ERROR'
-        }, HttpStatus.UNPROCESSABLE_ENTITY);
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+            message: 'A logic validation has not been fulfilled',
+            reasons: reasons,
+            code: 'VALIDATION_ERROR',
+          },
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
       }
 
       const country = payload.country;
       const requiredFields = this.getRequiredFieldsForCountry(country);
-      const missingFields = requiredFields.filter(fieldName => !(fieldName in payload));
+      const missingFields = requiredFields.filter(
+        (fieldName) => !(fieldName in payload),
+      );
 
       if (missingFields.length > 0) {
-        const reasons = missingFields.map(fieldName => ({
+        const reasons = missingFields.map((fieldName) => ({
           message: `${fieldName} is required`,
           path: fieldName,
-          validation: 'isRequired'
+          validation: 'isRequired',
         }));
 
-        throw new HttpException({
-          statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'A logic validation has not been fulfilled',
-          reasons: reasons,
-          code: 'VALIDATION_ERROR'
-        }, HttpStatus.UNPROCESSABLE_ENTITY);
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+            message: 'A logic validation has not been fulfilled',
+            reasons: reasons,
+            code: 'VALIDATION_ERROR',
+          },
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
       }
 
       const customer = await this.findOne({ id: customerId });
 
-      if (!customer?.data) throw new NotFoundException('Customer not found')
+      if (!customer?.data) throw new NotFoundException('Customer not found');
 
-      const customerKyc = await this.individualCustomerService.findOne({ customerId: { id: customerId }});
+      const customerKyc = await this.individualCustomerService.findOne({
+        customerId: { id: customerId },
+      });
 
-      if (customerKyc?.data) throw new BadRequestException('KYC record cannot be retried')
+      if (customerKyc?.data)
+        throw new BadRequestException('KYC record cannot be retried');
 
-      payload.customerId = customerId
+      payload.customerId = customerId;
 
-      const individualCustomerCreated = await this.individualCustomerService.create(payload)
+      const individualCustomerCreated =
+        await this.individualCustomerService.create(payload);
 
       if (!individualCustomerCreated) {
         throw new HttpException(
@@ -158,12 +189,12 @@ export class CustomerService extends CrudService<Customer> {
 
       const response: IResponseIndividualCustomer = {
         submissionId: individualCustomerCreated.id,
-        createdAt: individualCustomerCreated.createdAt
-      }
+        createdAt: individualCustomerCreated.createdAt,
+      };
 
-      return { data: response }
+      return { data: response };
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -176,50 +207,60 @@ export class CustomerService extends CrudService<Customer> {
     return countryRequirements[country] || [];
   }
 
-  async updateKyc(individualCustomer: CreateIndividualCustomerDto, customerId: string, submissionId: string): Promise<ResponseDTO> {
+  async updateKyc(
+    individualCustomer: CreateIndividualCustomerDto,
+    customerId: string,
+    submissionId: string,
+  ): Promise<ResponseDTO> {
     try {
       if (!isValidUUID(customerId)) {
         const reasons = {
           message: `${customerId} is invalid`,
           path: 'customerId',
-          validation: 'isInvalid'
+          validation: 'isInvalid',
         };
 
-        throw new HttpException({
-          statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'A logic validation has not been fulfilled',
-          reasons: reasons,
-          code: 'VALIDATION_ERROR'
-        }, HttpStatus.UNPROCESSABLE_ENTITY);
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+            message: 'A logic validation has not been fulfilled',
+            reasons: reasons,
+            code: 'VALIDATION_ERROR',
+          },
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
       }
 
       if (!isValidUUID(submissionId)) {
         const reasons = {
           message: `${submissionId} is invalid`,
           path: 'submissionId',
-          validation: 'isInvalid'
+          validation: 'isInvalid',
         };
 
-        throw new HttpException({
-          statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'A logic validation has not been fulfilled',
-          reasons: reasons,
-          code: 'VALIDATION_ERROR'
-        }, HttpStatus.UNPROCESSABLE_ENTITY);
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+            message: 'A logic validation has not been fulfilled',
+            reasons: reasons,
+            code: 'VALIDATION_ERROR',
+          },
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
       }
 
       const customer = await this.findOne({ id: customerId });
 
       if (!customer?.data) throw new NotFoundException('Customer not found');
 
-      let checkIndividualCustomer = await this.individualCustomerService.findOne(
-        {
+      let checkIndividualCustomer =
+        await this.individualCustomerService.findOne({
           customerId: { id: customerId },
-          id: submissionId
-        }
-      );
+          id: submissionId,
+        });
 
-      if (!checkIndividualCustomer?.data) throw new NotFoundException('Customer Kyc not found');
+      if (!checkIndividualCustomer?.data)
+        throw new NotFoundException('Customer Kyc not found');
 
       if (checkIndividualCustomer?.data?.statusKyc === StatusKyc.COMPLETED) {
         throw new HttpException(
@@ -228,11 +269,17 @@ export class CustomerService extends CrudService<Customer> {
         );
       }
 
-      checkIndividualCustomer.data = { ...checkIndividualCustomer?.data, ...individualCustomer };
+      checkIndividualCustomer.data = {
+        ...checkIndividualCustomer?.data,
+        ...individualCustomer,
+      };
 
-      delete checkIndividualCustomer?.data?.updatedAt
+      delete checkIndividualCustomer?.data?.updatedAt;
 
-      const updateResult = await this.individualCustomerService.update(submissionId, checkIndividualCustomer?.data);
+      const updateResult = await this.individualCustomerService.update(
+        submissionId,
+        checkIndividualCustomer?.data,
+      );
 
       if (!updateResult?.data) {
         throw new HttpException(
@@ -244,12 +291,12 @@ export class CustomerService extends CrudService<Customer> {
       const response: IResponseIndividualCustomer = {
         submissionId: updateResult?.data?.id,
         updatedAt: updateResult?.data?.updatedAt,
-        status: updateResult?.data?.statusKyc
-      }
+        status: updateResult?.data?.statusKyc,
+      };
 
-      return { data: response }
+      return { data: response };
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }

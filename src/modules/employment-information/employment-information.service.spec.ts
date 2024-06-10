@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmploymentInformationService } from './employment-information.service';
 
@@ -10,7 +9,9 @@ describe('EmploymentInformationService', () => {
       providers: [EmploymentInformationService],
     }).compile();
 
-    service = module.get<EmploymentInformationService>(EmploymentInformationService);
+    service = module.get<EmploymentInformationService>(
+      EmploymentInformationService,
+    );
   });
 
   it('should be defined', () => {

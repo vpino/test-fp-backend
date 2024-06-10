@@ -4,7 +4,6 @@ import { IsString, ValidateNested } from 'class-validator';
 import { EnhancedPaymentData } from 'src/modules/enhanced-payment-data/entities/enhanced-payment-data.entity';
 
 export class CreateTradelineDto {
-
   @ApiProperty()
   @IsString()
   accountNumber: string;

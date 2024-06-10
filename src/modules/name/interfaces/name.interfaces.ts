@@ -3,4 +3,3 @@ export interface IName {
   surname: string;
   type: string;
 }
-

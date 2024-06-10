@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRisk } from './entities/user-risk.entity';
@@ -35,7 +34,7 @@ import { ProviderInformationModule } from '../provider-information/provider-info
     RiskModelModule,
     EnhancedPaymentDataModule,
     TradelineModule,
-    EndTotalsModule
+    EndTotalsModule,
   ],
   controllers: [UserRiskController],
   providers: [UserRiskService],

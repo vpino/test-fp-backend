@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,12 +23,17 @@ import { UpdateEmploymentInformationDto } from './dtos/update.employment-informa
 @ApiTags('EmploymentInformation')
 @Controller('employment-information')
 export class EmploymentInformationController {
-  constructor(private readonly employmentInformationService: EmploymentInformationService) { }
+  constructor(
+    private readonly employmentInformationService: EmploymentInformationService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
   @ApiOperation({ summary: 'Get all EmploymentInformations' })
-  @ApiResponse({ status: 200, description: 'Return all EmploymentInformations' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return all EmploymentInformations',
+  })
   async getAll(): Promise<ResponseDTO> {
     return await this.employmentInformationService.getAll({});
   }
@@ -49,8 +53,14 @@ export class EmploymentInformationController {
     status: 201,
     description: 'The EmploymentInformation has been successfully created.',
   })
-  async create(@Body() employmentInformation: CreateEmploymentInformationDto): Promise<ResponseDTO> {
-    return { data: await this.employmentInformationService.create(employmentInformation) }
+  async create(
+    @Body() employmentInformation: CreateEmploymentInformationDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.employmentInformationService.create(
+        employmentInformation,
+      ),
+    };
   }
 
   @SkipJwtAuth()
@@ -64,7 +74,10 @@ export class EmploymentInformationController {
     @Param('id') id: string,
     @Body() employmentInformation: UpdateEmploymentInformationDto,
   ): Promise<ResponseDTO> {
-    return await this.employmentInformationService.update(id, employmentInformation);
+    return await this.employmentInformationService.update(
+      id,
+      employmentInformation,
+    );
   }
 
   @Delete(':id')

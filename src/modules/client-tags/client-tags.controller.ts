@@ -44,7 +44,7 @@ export class ClientTagsController {
     description: 'The Client tags has been successfully created.',
   })
   async create(@Body() clientTags: CreateClientTagsDto): Promise<ResponseDTO> {
-    return { data: this.clientTagsService.create(clientTags) }
+    return { data: this.clientTagsService.create(clientTags) };
   }
 
   @Put(':id')

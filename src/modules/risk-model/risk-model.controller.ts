@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateRiskModelDto } from './dtos/update.risk-model.dto';
 @ApiTags('RiskModel')
 @Controller('risk-model')
 export class RiskModelController {
-  constructor(private readonly riskModelService: RiskModelService) { }
+  constructor(private readonly riskModelService: RiskModelService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class RiskModelController {
     description: 'The RiskModel has been successfully created.',
   })
   async create(@Body() riskModel: CreateRiskModelDto): Promise<ResponseDTO> {
-    return { data: await this.riskModelService.create(riskModel) }
+    return { data: await this.riskModelService.create(riskModel) };
   }
 
   @SkipJwtAuth()

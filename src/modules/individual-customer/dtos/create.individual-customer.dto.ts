@@ -1,5 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, IsEnum, IsDateString, ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments, IsNotEmpty, IsDate, IsBoolean, IsArray, IsUUID, isUUID } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsEnum,
+  IsDateString,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidationArguments,
+  IsNotEmpty,
+  IsDate,
+  IsBoolean,
+  IsArray,
+  IsUUID,
+  isUUID,
+} from 'class-validator';
 import { StatusKyc } from 'src/common/enums/customer.enums';
 
 function Optional(target: any, propertyKey: string) {
@@ -16,7 +30,7 @@ export class ArrayNotNullValidator implements ValidatorConstraintInterface {
     if (!Array.isArray(value)) {
       return false;
     }
-    return value.every(element => element.trim() !== '');
+    return value.every((element) => element.trim() !== '');
   }
 
   defaultMessage(args: ValidationArguments) {
@@ -62,41 +76,41 @@ export class CreateIndividualCustomerDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  country: string = ''
+  country: string = '';
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  city: string = ''
+  city: string = '';
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  state: string = ''
+  state: string = '';
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  zipCode: string = ''
+  zipCode: string = '';
 
   @ApiProperty()
   @IsString()
-  dni: string = ''
+  dni: string = '';
 
   @ApiProperty()
   @IsString()
-  address: string = ''
+  address: string = '';
 
   @ApiProperty()
   @IsOptional()
   @Optional
   @IsString()
-  addressExtension?: string = ''
+  addressExtension?: string = '';
 
   @IsEnum(StatusKyc)
   @ApiProperty({
     description: 'Status KYC',
-    enum: StatusKyc
+    enum: StatusKyc,
   })
   @IsString()
   @IsOptional()
@@ -129,7 +143,7 @@ export class CreateIndividualCustomerDto {
   @ApiProperty({
     description: 'Indicates if the customer is active',
     example: true,
-    required: false
+    required: false,
   })
   @IsBoolean()
   @IsOptional()
@@ -140,7 +154,7 @@ export class CreateIndividualCustomerDto {
   @ApiProperty({
     description: 'Indicates if the customer is deleted',
     example: false,
-    required: false
+    required: false,
   })
   @IsBoolean()
   @IsOptional()

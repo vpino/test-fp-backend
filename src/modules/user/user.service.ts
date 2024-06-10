@@ -25,72 +25,83 @@ export class UserService extends CrudService<User> {
     super(userRepository, 'id', dataSourceInject);
   }
 
-  async createUserAndPersona(data: CreateUserAndPersonaDto): Promise<ResponseDTO> {
-    return await this.entityManager.transaction(async transactionalEntityManager => {
-      const persona = this.personaService.create(data.persona);
-      const savedPersona = await transactionalEntityManager.save(persona);
+  async createUserAndPersona(
+    data: CreateUserAndPersonaDto,
+  ): Promise<ResponseDTO> {
+    return await this.entityManager.transaction(
+      async (transactionalEntityManager) => {
+        const persona = this.personaService.create(data.persona);
+        const savedPersona = await transactionalEntityManager.save(persona);
 
-      if (!savedPersona) {
-        throw new BadRequestException(MESSAGES.CREATION_ERROR);
-      }
+        if (!savedPersona) {
+          throw new BadRequestException(MESSAGES.CREATION_ERROR);
+        }
 
-      data.user.persona = savedPersona.id;
+        data.user.persona = savedPersona.id;
 
-      data.user.password = Math.random().toString(36).slice(-8);
-      const user = this.userRepository.create(data.user as any);
-      const savedUser = await transactionalEntityManager.save(user);
+        data.user.password = Math.random().toString(36).slice(-8);
+        const user = this.userRepository.create(data.user as any);
+        const savedUser = await transactionalEntityManager.save(user);
 
-      await this.sendTmpPasswd(data.user.email, data.user.password);
+        await this.sendTmpPasswd(data.user.email, data.user.password);
 
-      return { data: savedUser };
-    });
+        return { data: savedUser };
+      },
+    );
   }
 
-  async updateUserAndPersona(id: string, data: CreateUserAndPersonaDto): Promise<ResponseDTO> {
-    return await this.entityManager.transaction(async transactionalEntityManager => {
-      const persona = await this.personaService.update(
-        data.persona.id,
-        data.persona,
-      );
+  async updateUserAndPersona(
+    id: string,
+    data: CreateUserAndPersonaDto,
+  ): Promise<ResponseDTO> {
+    return await this.entityManager.transaction(
+      async (transactionalEntityManager) => {
+        const persona = await this.personaService.update(
+          data.persona.id,
+          data.persona,
+        );
 
-      if (!persona) {
-        throw new BadRequestException(MESSAGES.UPDATE_ERROR);
-      }
+        if (!persona) {
+          throw new BadRequestException(MESSAGES.UPDATE_ERROR);
+        }
 
-      const updatedPersona = await transactionalEntityManager.save(persona);
+        const updatedPersona = await transactionalEntityManager.save(persona);
 
-      data.user.persona = updatedPersona.data.id;
+        data.user.persona = updatedPersona.data.id;
 
-      const user = await this.userRepository.update(
-        id,
-        data.user as any
-      );
+        const user = await this.userRepository.update(id, data.user as any);
 
-      if (!user) {
-        throw new BadRequestException(MESSAGES.UPDATE_ERROR);
-      }
+        if (!user) {
+          throw new BadRequestException(MESSAGES.UPDATE_ERROR);
+        }
 
-      const updatedUser = await transactionalEntityManager.save(user);
+        const updatedUser = await transactionalEntityManager.save(user);
 
-      return { data: updatedUser };
-    });
+        return { data: updatedUser };
+      },
+    );
   }
 
   async deleteUserAndPersona(userId: string): Promise<ResponseDTO> {
-    return await this.entityManager.transaction(async transactionalEntityManager => {
-      const user = await this.userRepository.findOne({ where: { id: userId }, relations: ['persona'] });
+    return await this.entityManager.transaction(
+      async (transactionalEntityManager) => {
+        const user = await this.userRepository.findOne({
+          where: { id: userId },
+          relations: ['persona'],
+        });
 
-      if (!user) {
-        throw new BadRequestException(MESSAGES.USER_NOT_FOUND);
-      }
+        if (!user) {
+          throw new BadRequestException(MESSAGES.USER_NOT_FOUND);
+        }
 
-      await transactionalEntityManager.remove(user);
-      await this.personaService.deleteOne(user.persona.id);
+        await transactionalEntityManager.remove(user);
+        await this.personaService.deleteOne(user.persona.id);
 
-      return {
-        data: { message: 'Usuario y persona eliminados correctamente' },
-      };
-    });
+        return {
+          data: { message: 'Usuario y persona eliminados correctamente' },
+        };
+      },
+    );
   }
 
   async sendTmpPasswd(email: string, passwd: string): Promise<boolean> {
@@ -107,7 +118,10 @@ export class UserService extends CrudService<User> {
     return true;
   }
 
-  async resetPassword(resetPasswordDto: ResetPasswordDto, email: string): Promise<ResponseDTO> {
+  async resetPassword(
+    resetPasswordDto: ResetPasswordDto,
+    email: string,
+  ): Promise<ResponseDTO> {
     try {
       const user = await this.userRepository.findOne({ where: { email } });
 
