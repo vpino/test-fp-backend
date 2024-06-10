@@ -1,0 +1,90 @@
+stages:
+  - lint
+  - build
+  - deploy
+
+lint:
+  stage: lint
+  image: node:21-alpine
+  script:
+    - echo "Ejecutando ESLint..."
+    - yarn install --frozen-lockfile && yarn lint
+  only:
+    - branches
+
+.build_template: &build_template
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo "Construyendo para el ambiente $CI_ENVIRONMENT_NAME con Kaniko..."
+    - /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --build-arg NODE_ENV=$CI_ENVIRONMENT_NAME
+      --dockerfile $CI_PROJECT_DIR/Dockerfile 
+      --destination $DOCKER_REGISTRY/$CI_PROJECT_NAME:$CI_PIPELINE_ID
+
+build_develop:
+  <<: *build_template
+  environment: develop
+  variables:
+    CI_ENVIRONMENT_NAME: "develop"
+  only:
+    - develop
+
+build_staging:
+  <<: *build_template
+  environment: staging
+  variables:
+    CI_ENVIRONMENT_NAME: "staging"
+  only:
+    - staging
+
+build_production:
+  <<: *build_template
+  environment: production
+  variables:
+    CI_ENVIRONMENT_NAME: "production"
+  only:
+    - tags
+
+.deploy_template: &deploy_template
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Desplegando en el ambiente $CI_ENVIRONMENT_NAME..."
+    - 'which ssh-agent || ( apk add openssh-client )'
+    - echo "$SWARM_KEY" > private_key
+    - chmod 600 private_key
+    - eval $(ssh-agent -s)
+    - ssh-add private_key
+    - |
+      ssh -o StrictHostKeyChecking=no $SWARM_USER@$SWARM_BACK "
+        docker service update --image $DOCKER_REGISTRY/$CI_PROJECT_NAME:$CI_PIPELINE_ID $CI_PROJECT_NAME
+      "
+    - eval $(ssh-agent -k)
+
+deploy_to_develop:
+  <<: *deploy_template
+  environment: develop
+  variables:
+    CI_ENVIRONMENT_NAME: "develop"
+  only:
+    - develop
+
+deploy_to_staging:
+  <<: *deploy_template
+  environment: staging
+  variables:
+    CI_ENVIRONMENT_NAME: "staging"
+  only:
+    - staging
+
+deploy_to_production:
+  <<: *deploy_template
+  environment: production
+  variables:
+    CI_ENVIRONMENT_NAME: "production"
+  only:
+    - tags

@@ -1,0 +1,15 @@
+{
+    "files.eol": "\n",
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/node_modules/**": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/venv": true
+    },
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.inlineSuggest.showToolbar": "always"
+}

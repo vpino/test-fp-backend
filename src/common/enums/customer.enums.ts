@@ -1,0 +1,12 @@
+export enum TypeCustomer {
+  BUSINESS = 'BUSINESS',
+  INDIVIDUAL = 'INDIVIDUAL'
+}
+
+export enum StatusKyc {
+  CREATED = 'CREATED',
+  IN_REVIEW = 'IN_REVIEW',
+  UPDATE_REQUIRED = 'UPDATE_REQUIRED',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED'
+}

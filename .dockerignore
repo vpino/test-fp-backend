@@ -1,0 +1,15 @@
+node_modules
+dist
+test
+coverage
+
+.npmrc
+.local.env
+.dockerignore
+Dockerfile
+*.md
+.git
+.gitignore
+.nyc_output
+*.ts.map
+*.ts

@@ -1,0 +1,21 @@
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBydWViYTJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NTgxZDhlY2VjMjFhZTRjYjU2YTFhNDkiLCJjb211bm5pdGllcyI6W10sImlhdCI6MTcwNzE0NjU4OSwiZXhwIjoxNzA3MjMyOTg5fQ._naDdoW_F75dPCegAhhYXm8Czf7C0aMM7VuAEY-bEkU
+
+
+{
+  "community": "65b7fbfdeeda13bd7737355c,
+  "commerce": {
+    "idCommerce": "001-2024",
+    "rifType": "string",
+    "rif": "string",
+    "businessName": "string",
+    "email": "string",
+    "localPhone": "+58 (212)-000-0000",
+    "phone": "+58 (414)-000-0000"
+  },
+  "apps": [
+    "6595a68d8ceaf3bf9f71c328"
+  ],
+  "profiles": [
+    "6595bcb851e8a137b72bd396"
+  ]
+}
