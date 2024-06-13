@@ -17,19 +17,14 @@ function capitalize(str) {
 // const camelCase = 'ofac';
 // const rootDirectory = './src/modules';
 
-const moduleName = 'user-risk';
-const capitalizeName = 'UserRisk';
-const camelCase = 'userRisk';
+const moduleName = 'bridge-loan';
+const capitalizeName = 'BridgeLoan';
+const camelCase = 'bridgeLoan';
 const rootDirectory = './src/modules';
 
 const json = {
-  userRisk: {
-    modelID: 'Country_mode_number',
-    decision: '',
-    woe: 'variable',
-    woeDescription: 'string',
-    riskID: '77702475-2p5394524-p924ho353245',
-    riskTier: 'tier 2',
+  bridgeLoan: {
+    leadUuid: 'NONE',
   },
 };
 
@@ -188,15 +183,16 @@ describe('${capitalizeName}Service', () => {
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { ${capitalizeName} } from './entities/${moduleName}.entity';
 
 @Injectable()
 export class ${capitalizeName}Service extends CrudService<${capitalizeName}> {
   constructor(
     @InjectRepository(${capitalizeName}) private ${camelCase}Repository: Repository<${capitalizeName}>,
+    private readonly dataSourceInject: DataSource,
   ) {
-    super(${camelCase}Repository);
+    super(${camelCase}Repository, 'id', dataSourceInject);
   }
 }
 `,
@@ -345,4 +341,4 @@ function generateAll(json) {
   console.log(`Files generated for entity: ${moduleName}`);
 }
 
-generateAll(json.userRisk);
+generateAll(json.bridgeLoan);

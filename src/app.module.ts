@@ -38,6 +38,11 @@ import { RiskModelModule } from './modules/risk-model/risk-model.module';
 import { ScoreFactorsModule } from './modules/score-factors/score-factors.module';
 import { TradelineModule } from './modules/tradeline/tradeline.module';
 import { UserRiskModule } from './modules/user-risk/user-risk.module';
+import { AmortizationSettingsModule } from './modules/amortization-settings/amortization-settings.module';
+import { PersonalLoanModule } from './modules/personal-loan/personal-loan.module';
+import { CreditCardModule } from './modules/credit-card/credit-card.module';
+import { HomeLoanModule } from './modules/home-loan/home-loan.module';
+import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
 
 @Module({
   imports: [
@@ -113,6 +118,11 @@ import { UserRiskModule } from './modules/user-risk/user-risk.module';
     ScoreFactorsModule,
     TradelineModule,
     UserRiskModule,
+    AmortizationSettingsModule,
+    PersonalLoanModule,
+    CreditCardModule,
+    HomeLoanModule,
+    BridgeLoanModule
   ],
   providers: [
     {

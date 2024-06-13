@@ -18,6 +18,7 @@ import { SkipJwtAuth } from 'src/common/decorators/skip-guard.decorator';
 import { UserRiskService } from './user-risk.service';
 import { CreateUserRiskDto } from './dtos/create.user-risk.dto';
 import { UpdateUserRiskDto } from './dtos/update.user-risk.dto';
+import { GenerateUserRiskDto } from './dtos/generate.user-risk.dto';
 
 @ApiBearerAuth('JWT-auth')
 @ApiTags('User Risk')
@@ -41,6 +42,17 @@ export class UserRiskController {
     return await this.userRiskService.findOne({ id });
   }
 
+  // @SkipJwtAuth()
+  // @Post()
+  // @ApiOperation({ summary: 'Create a new UserRisk' })
+  // @ApiResponse({
+  //   status: 201,
+  //   description: 'The UserRisk has been successfully created.',
+  // })
+  // async create(@Body() userRisk: CreateUserRiskDto): Promise<ResponseDTO> {
+  //   return { data: await this.userRiskService.create(userRisk) };
+  // }
+
   @SkipJwtAuth()
   @Post()
   @ApiOperation({ summary: 'Create a new UserRisk' })
@@ -48,18 +60,7 @@ export class UserRiskController {
     status: 201,
     description: 'The UserRisk has been successfully created.',
   })
-  async create(@Body() userRisk: CreateUserRiskDto): Promise<ResponseDTO> {
-    return { data: await this.userRiskService.create(userRisk) };
-  }
-
-  @SkipJwtAuth()
-  @Post('generate')
-  @ApiOperation({ summary: 'Create a new UserRisk' })
-  @ApiResponse({
-    status: 201,
-    description: 'The UserRisk has been successfully created.',
-  })
-  async generate(): Promise<ResponseDTO> {
+  async generate(@Body() data: GenerateUserRiskDto): Promise<ResponseDTO> {
     return { data: await this.userRiskService.generate() };
   }
 

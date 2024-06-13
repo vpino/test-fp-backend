@@ -42,7 +42,6 @@ export class UserRiskService extends CrudService<UserRisk> {
     private readonly riskModelService: RiskModelService,
     private readonly enhancedPaymentDataService: EnhancedPaymentDataService,
     private readonly tradelineService: TradelineService,
-
     private readonly endTotalsService: EndTotalsService,
   ) {
     super(userRiskRepository, 'id', dataSourceInject);
