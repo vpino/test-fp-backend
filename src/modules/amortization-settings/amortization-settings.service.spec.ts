@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { AmortizationSettingsService } from './amortization-settings.service';
 
@@ -10,7 +9,9 @@ describe('AmortizationSettingsService', () => {
       providers: [AmortizationSettingsService],
     }).compile();
 
-    service = module.get<AmortizationSettingsService>(AmortizationSettingsService);
+    service = module.get<AmortizationSettingsService>(
+      AmortizationSettingsService,
+    );
   });
 
   it('should be defined', () => {

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,7 +12,8 @@ import { ProductType } from 'src/common/enums/product-type.enum';
 @Injectable()
 export class PersonalLoanService extends CrudService<PersonalLoan> {
   constructor(
-    @InjectRepository(PersonalLoan) private personaLoanRepository: Repository<PersonalLoan>,
+    @InjectRepository(PersonalLoan)
+    private personaLoanRepository: Repository<PersonalLoan>,
     private readonly dataSourceInject: DataSource,
     private readonly creditCardService: CreditCardService,
     private readonly homeLoanService: HomeLoanService,
@@ -31,7 +31,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
         images: [
           {
             sizeKey: '150',
-            url: 'aff-tag.fuap.com/images/lendingclub/lendingclub_120.png' //faker.image.url(),
+            url: 'aff-tag.fuap.com/images/lendingclub/lendingclub_120.png', //faker.image.url(),
           },
         ],
         disclaimer: faker.lorem.sentence(),
@@ -98,12 +98,12 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     return {
       uuid: faker.string.uuid(),
       originator: {
-        key: "lending-club",
-        name: "LendingClub",
-        description: "Low fixed rate personal loans from $1,000 to $40,000",
+        key: 'lending-club',
+        name: 'LendingClub',
+        description: 'Low fixed rate personal loans from $1,000 to $40,000',
         images: [
           {
-            sizeKey: "150",
+            sizeKey: '150',
             url: 'aff-tag.fuap.com/images/lendingclub/lendingclub_120.png',
           },
         ],
@@ -111,7 +111,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
       },
       originatorId: null,
       termLength: faker.number.int({ min: 12, max: 60 }),
-      termUnit: "month",
+      termUnit: 'month',
       maxAmount: faker.number.int({ min: 5000, max: 40000 }),
       minAmount: faker.number.int({ min: 1000, max: 5000 }),
       maxApr: faker.number.float({ min: 10, max: 40 }),
@@ -137,7 +137,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
       preQualified: faker.datatype.boolean(),
       preApproved: faker.datatype.boolean(),
       sponsored: faker.datatype.boolean(),
-      aprType: "fixed",
+      aprType: 'fixed',
       recommendationScore: faker.number.int({ min: 0, max: 100 }),
       amountPrefix: null,
     };
@@ -162,38 +162,38 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
         disclaimer: faker.lorem.sentence(),
         imageUrl: faker.image.url(),
       },
-      productType: "credit_card",
-      productSubType: "credit_card",
+      productType: 'credit_card',
+      productSubType: 'credit_card',
       url: faker.internet.url(),
       details: {
         cardName: faker.finance.accountName(),
         cardImageUrl: faker.image.url(),
-        cardPurposes: ["travel_incentives"],
+        cardPurposes: ['travel_incentives'],
         ratesUrl: faker.internet.url(),
         maxPurchaseApr: faker.number.float({ min: 10, max: 25 }),
         minPurchaseApr: faker.number.float({ min: 5, max: 10 }),
         maxPurchaseIntroApr: faker.number.float({ min: 0, max: 5 }),
         minPurchaseIntroApr: faker.number.float({ min: 0, max: 5 }),
         purchaseIntroAprTerm: faker.number.int({ min: 6, max: 18 }),
-        purchaseIntroAprTermUnit: "month",
+        purchaseIntroAprTermUnit: 'month',
         maxCashAdvanceApr: faker.number.float({ min: 10, max: 25 }),
         minCashAdvanceApr: faker.number.float({ min: 5, max: 10 }),
         maxCashAdvanceIntroApr: faker.number.float({ min: 0, max: 5 }),
         minCashAdvanceIntroApr: faker.number.float({ min: 0, max: 5 }),
         cashAdvanceIntroAprTerm: faker.number.int({ min: 6, max: 18 }),
-        cashAdvanceIntroAprTermUnit: "month",
+        cashAdvanceIntroAprTermUnit: 'month',
         maxBalanceTransferApr: faker.number.float({ min: 10, max: 25 }),
         minBalanceTransferApr: faker.number.float({ min: 5, max: 10 }),
         maxBalanceTransferIntroApr: faker.number.float({ min: 0, max: 5 }),
         minBalanceTransferIntroApr: faker.number.float({ min: 0, max: 5 }),
         balanceTransferIntroAprTerm: faker.number.int({ min: 6, max: 18 }),
-        balanceTransferIntroAprTermUnit: "month",
+        balanceTransferIntroAprTermUnit: 'month',
         annualFee: faker.number.int({ min: 0, max: 500 }),
         annualIntroFee: 0,
         annualIntroFeeTerm: 1,
         details: [faker.lorem.sentence()],
         additionalDetails: [faker.lorem.sentence()],
-        cardType: "visa",
+        cardType: 'visa',
         minimumCreditLine: faker.number.int({ min: 1000, max: 5000 }),
         minimumPenaltyApr: faker.number.float({ min: 5, max: 25 }),
         maximumPenaltyApr: faker.number.float({ min: 10, max: 35 }),
@@ -204,11 +204,11 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
         accountOpeningFee: 0,
         returnPaymentFee: 0,
         monthlyServiceFee: 0,
-        recommendedCreditRatings: ["good"],
+        recommendedCreditRatings: ['good'],
         preQualified: faker.datatype.boolean(),
         preApproved: faker.datatype.boolean(),
         preSelected: faker.datatype.boolean(),
-        aprType: "variable",
+        aprType: 'variable',
       },
     };
   }
@@ -217,12 +217,12 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     return {
       uuid: faker.string.uuid(),
       originator: {
-        key: "lending-club",
-        name: "LendingClub",
-        description: "Low fixed rate home loans from $100,000 to $750,000",
+        key: 'lending-club',
+        name: 'LendingClub',
+        description: 'Low fixed rate home loans from $100,000 to $750,000',
         images: [
           {
-            sizeKey: "150",
+            sizeKey: '150',
             url: 'aff-tag.fuap.com/images/lendingclub/lendingclub_120.png',
           },
         ],
@@ -230,7 +230,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
       },
       originatorId: null,
       termLength: faker.number.int({ min: 60, max: 360 }),
-      termUnit: "month",
+      termUnit: 'month',
       maxAmount: faker.number.int({ min: 100000, max: 750000 }),
       minAmount: faker.number.int({ min: 100000, max: 750000 }),
       maxApr: faker.number.float({ min: 2, max: 7 }),
@@ -256,7 +256,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
       preQualified: faker.datatype.boolean(),
       preApproved: faker.datatype.boolean(),
       sponsored: faker.datatype.boolean(),
-      aprType: "fixed",
+      aprType: 'fixed',
       recommendationScore: faker.number.int({ min: 0, max: 100 }),
       amountPrefix: null,
     };
@@ -289,6 +289,3 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     return response;
   }
 }
-
-
-

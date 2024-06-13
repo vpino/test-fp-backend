@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,9 @@ import { UpdateAmortizationSettingsDto } from './dtos/update.amortization-settin
 @ApiTags('AmortizationSettings')
 @Controller('amortization-settings')
 export class AmortizationSettingsController {
-  constructor(private readonly amortizationSettingsService: AmortizationSettingsService) { }
+  constructor(
+    private readonly amortizationSettingsService: AmortizationSettingsService,
+  ) {}
 
   @SkipJwtAuth()
   @Get()
@@ -49,8 +50,12 @@ export class AmortizationSettingsController {
     status: 201,
     description: 'The AmortizationSettings has been successfully created.',
   })
-  async create(@Body() amortizationSettings: CreateAmortizationSettingsDto): Promise<ResponseDTO> {
-    return { data: await this.amortizationSettingsService.create(amortizationSettings) }
+  async create(
+    @Body() amortizationSettings: CreateAmortizationSettingsDto,
+  ): Promise<ResponseDTO> {
+    return {
+      data: await this.amortizationSettingsService.create(amortizationSettings),
+    };
   }
 
   @SkipJwtAuth()
@@ -64,7 +69,10 @@ export class AmortizationSettingsController {
     @Param('id') id: string,
     @Body() amortizationSettings: UpdateAmortizationSettingsDto,
   ): Promise<ResponseDTO> {
-    return await this.amortizationSettingsService.update(id, amortizationSettings);
+    return await this.amortizationSettingsService.update(
+      id,
+      amortizationSettings,
+    );
   }
 
   @Delete(':id')

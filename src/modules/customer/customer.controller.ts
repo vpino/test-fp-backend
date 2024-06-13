@@ -68,7 +68,7 @@ export class CustomerController {
     description: 'The customer has been successfully created.',
   })
   async create(@Body() Customer: CreateCustomerDto): Promise<ResponseDTO> {
-    return await this.customerService.save(Customer)
+    return await this.customerService.save(Customer);
   }
 
   @SkipJwtAuth()

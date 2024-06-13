@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,15 +10,14 @@ import { faker } from '@faker-js/faker';
 @Injectable()
 export class BridgeLoanService extends CrudService<BridgeLoan> {
   constructor(
-    @InjectRepository(BridgeLoan) private bridgeLoanRepository: Repository<BridgeLoan>,
+    @InjectRepository(BridgeLoan)
+    private bridgeLoanRepository: Repository<BridgeLoan>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(bridgeLoanRepository, 'id', dataSourceInject);
   }
 
-  async generate(
-    generateBridgeLoan: GenerateBridgeLoanDto
-  ): Promise<any> {
+  async generate(generateBridgeLoan: GenerateBridgeLoanDto): Promise<any> {
     return {
       loanConnection: this.generateLoanConnection(),
       customer: this.generateCustomer(),

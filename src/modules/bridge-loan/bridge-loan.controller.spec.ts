@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { BridgeLoanController } from './bridge-loan.controller';
 import { BridgeLoanService } from './bridge-loan.service';

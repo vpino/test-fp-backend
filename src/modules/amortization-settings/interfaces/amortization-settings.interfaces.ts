@@ -8,4 +8,3 @@ export interface IAmortizationSettings {
   periodCount: number;
   periodUnit: string;
 }
-

@@ -34,7 +34,7 @@ import { ProviderInformationModule } from '../provider-information/provider-info
     RiskModelModule,
     EnhancedPaymentDataModule,
     TradelineModule,
-    EndTotalsModule
+    EndTotalsModule,
   ],
   controllers: [UserRiskController],
   providers: [UserRiskService],

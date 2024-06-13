@@ -122,7 +122,7 @@ import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
     PersonalLoanModule,
     CreditCardModule,
     HomeLoanModule,
-    BridgeLoanModule
+    BridgeLoanModule,
   ],
   providers: [
     {

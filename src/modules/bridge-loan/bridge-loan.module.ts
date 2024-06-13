@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BridgeLoan } from './entities/bridge-loan.entity';

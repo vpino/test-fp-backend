@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PersonalLoan } from './entities/personal-loan.entity';
@@ -11,10 +10,10 @@ import { HomeLoanModule } from '../home-loan/home-loan.module';
   imports: [
     TypeOrmModule.forFeature([PersonalLoan]),
     CreditCardModule,
-    HomeLoanModule
+    HomeLoanModule,
   ],
   controllers: [PersonalLoanController],
   providers: [PersonalLoanService],
   exports: [PersonalLoanService],
 })
-export class PersonalLoanModule { }
+export class PersonalLoanModule {}

@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { AmortizationSettingsController } from './amortization-settings.controller';
 import { AmortizationSettingsService } from './amortization-settings.service';
@@ -12,7 +11,9 @@ describe('AmortizationSettingsController', () => {
       providers: [AmortizationSettingsService],
     }).compile();
 
-    controller = module.get<AmortizationSettingsController>(AmortizationSettingsController);
+    controller = module.get<AmortizationSettingsController>(
+      AmortizationSettingsController,
+    );
   });
 
   it('should be defined', () => {

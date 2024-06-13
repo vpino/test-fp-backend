@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -24,7 +23,7 @@ import { UpdateCreditCardDto } from './dtos/update.credit-card.dto';
 @ApiTags('CreditCard')
 @Controller('credit-card')
 export class CreditCardController {
-  constructor(private readonly creditCardService: CreditCardService) { }
+  constructor(private readonly creditCardService: CreditCardService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -50,7 +49,7 @@ export class CreditCardController {
     description: 'The CreditCard has been successfully created.',
   })
   async create(@Body() creditCard: CreateCreditCardDto): Promise<ResponseDTO> {
-    return { data: await this.creditCardService.create(creditCard) }
+    return { data: await this.creditCardService.create(creditCard) };
   }
 
   @SkipJwtAuth()

@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -25,7 +24,7 @@ import { GenerateBridgeLoanDto } from './dtos/generate.bridge-loan.dto';
 @ApiTags('Bridge Loan')
 @Controller('bridge-loan')
 export class BridgeLoanController {
-  constructor(private readonly bridgeLoanService: BridgeLoanService) { }
+  constructor(private readonly bridgeLoanService: BridgeLoanService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -62,7 +61,7 @@ export class BridgeLoanController {
     description: 'The BridgeLoan has been successfully created.',
   })
   async create(@Body() bridgeLoan: GenerateBridgeLoanDto): Promise<any> {
-    return await this.bridgeLoanService.generate(bridgeLoan)
+    return await this.bridgeLoanService.generate(bridgeLoan);
   }
 
   @SkipJwtAuth()

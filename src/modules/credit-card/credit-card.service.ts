@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,7 +8,8 @@ import { faker } from '@faker-js/faker';
 @Injectable()
 export class CreditCardService extends CrudService<CreditCard> {
   constructor(
-    @InjectRepository(CreditCard) private creditCardRepository: Repository<CreditCard>,
+    @InjectRepository(CreditCard)
+    private creditCardRepository: Repository<CreditCard>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(creditCardRepository, 'id', dataSourceInject);
@@ -81,7 +81,7 @@ export class CreditCardService extends CrudService<CreditCard> {
         preApproved: faker.datatype.boolean(),
         preSelected: faker.datatype.boolean(),
         aprType: 'variable',
-      }
+      },
     };
   }
 
@@ -105,10 +105,13 @@ export class CreditCardService extends CrudService<CreditCard> {
       loanOffers: [],
       specialOffers: [],
       savingsOffers: [],
-      creditCardOffers: Array.from({ length: 2 }, () => this.generateCreditCardOffer()), // Genera 2 ofertas de tarjetas de crédito
+      creditCardOffers: Array.from({ length: 2 }, () =>
+        this.generateCreditCardOffer(),
+      ), // Genera 2 ofertas de tarjetas de crédito
       mortgageOffers: [],
-      pendingResponses: Array.from({ length: 1 }, () => this.generatePendingResponse()), // Genera 1 respuesta pendiente
+      pendingResponses: Array.from({ length: 1 }, () =>
+        this.generatePendingResponse(),
+      ), // Genera 1 respuesta pendiente
     };
   }
 }
-

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,7 +8,8 @@ import { faker } from '@faker-js/faker';
 @Injectable()
 export class HomeLoanService extends CrudService<HomeLoan> {
   constructor(
-    @InjectRepository(HomeLoan) private homeLoanRepository: Repository<HomeLoan>,
+    @InjectRepository(HomeLoan)
+    private homeLoanRepository: Repository<HomeLoan>,
     private readonly dataSourceInject: DataSource,
   ) {
     super(homeLoanRepository, 'id', dataSourceInject);
@@ -24,15 +24,15 @@ export class HomeLoanService extends CrudService<HomeLoan> {
         description: faker.lorem.sentence(),
         images: [
           {
-            sizeKey: "150",
+            sizeKey: '150',
             url: faker.internet.url(),
-          }
+          },
         ],
         disclaimer: faker.lorem.sentence(),
       },
       originatorId: null,
       termLength: faker.number.int({ min: 12, max: 360 }),
-      termUnit: "month",
+      termUnit: 'month',
       maxAmount: faker.number.int({ min: 100000, max: 750000 }),
       minAmount: faker.number.int({ min: 1000, max: 100000 }),
       maxApr: faker.number.float({ min: 20, max: 40 }),
@@ -58,7 +58,7 @@ export class HomeLoanService extends CrudService<HomeLoan> {
       preQualified: faker.datatype.boolean(),
       preApproved: faker.datatype.boolean(),
       sponsored: faker.datatype.boolean(),
-      aprType: "fixed",
+      aprType: 'fixed',
       recommendationScore: faker.number.int({ min: 0, max: 100 }),
       amountPrefix: null,
     };
@@ -85,8 +85,12 @@ export class HomeLoanService extends CrudService<HomeLoan> {
       specialOffers: [],
       savingsOffers: [],
       creditCardOffers: [],
-      mortgageOffers: Array.from({ length: 1 }, () => this.generateMortgageOffer()), // Genera 1 oferta de hipoteca
-      pendingResponses: Array.from({ length: 1 }, () => this.generatePendingResponse()), // Genera 1 respuesta pendiente
+      mortgageOffers: Array.from({ length: 1 }, () =>
+        this.generateMortgageOffer(),
+      ), // Genera 1 oferta de hipoteca
+      pendingResponses: Array.from({ length: 1 }, () =>
+        this.generatePendingResponse(),
+      ), // Genera 1 respuesta pendiente
     };
   }
 }
