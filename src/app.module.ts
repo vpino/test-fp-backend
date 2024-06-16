@@ -73,6 +73,14 @@ import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
         ],
         synchronize: configService.get('database.synchronize'),
         logging: ['error', 'query'],
+        ssl: {
+          rejectUnauthorized: false,
+        },
+        extra: {
+          trustServerCertificate: true,
+          Encrypt: true,
+          IntegratedSecurity: false,
+        },
       }),
     }),
     ThrottlerModule.forRootAsync({
