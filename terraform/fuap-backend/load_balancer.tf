@@ -4,8 +4,7 @@ resource "aws_lb" "main" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [
-    aws_security_group.ecs.id,  # Utiliza el grupo de seguridad para ECS
-    aws_security_group.rds.id   # Utiliza el grupo de seguridad para RDS si es necesario
+    aws_security_group.lb.id,
   ]
 
   subnet_mapping {
