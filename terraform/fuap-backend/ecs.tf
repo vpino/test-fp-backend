@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "main" {
 }
 
 resource "aws_ecs_task_definition" "main" {
-  family                   = "fuap-dev-task"
+  family                   = var.family_name
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
@@ -68,9 +68,14 @@ resource "aws_ecs_service" "main" {
       aws_subnet.private_b.id
     ]
     security_groups = [aws_security_group.ecs.id]
+    assign_public_ip = true
   }
 
   tags = {
     Name = "fuap-dev-service"
   }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.ecs_task_execution_policy_attachment,
+  ]
 }
