@@ -63,9 +63,9 @@ jobs:
         run: |
           aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment --region $AWS_REGION --desired-count 1
 
-      - name: Invalidate CloudFront Cache
-        env:
-          DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+      # - name: Invalidate CloudFront Cache
+      #   env:
+      #     DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+      #     AWS_REGION: ${{ secrets.AWS_REGION }}
+      #   run: |
+      #     aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"

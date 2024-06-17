@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "main" {
   vpc_id = aws_vpc.main.id  # Reemplaza con el ID de tu VPC
 
   health_check {
-    path                = "/"
+    path                = "/api/docs"
     protocol            = "HTTP"
     timeout             = 5
     interval            = 30
