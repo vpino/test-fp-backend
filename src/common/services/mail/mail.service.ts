@@ -13,8 +13,8 @@ export class MailService {
   constructor(private configService: ConfigService) {
     const mailgun = new Mailgun(FormData);
     this.clientMailGun = mailgun.client({
-      username: this.configService.get<string>('mailgun.userName'),
-      key: this.configService.get<string>('mailgun.key'),
+      username: 'username', //this.configService.get<string>('mailgun.userName'),
+      key: 'key', //this.configService.get<string>('mailgun.key'),
     });
   }
 

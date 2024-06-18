@@ -46,7 +46,6 @@ variable "db_engine" {
   default     = "postgres"
 }
 
-
 variable "db_username" {
   description = "User developer"
   type        = string

@@ -12,7 +12,6 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { PersonaModule } from './modules/persona/persona.module';
 import { MasterTablesModule } from './modules/master-tables/master-tables.module';
-import mailgunConfig from './config/mailgun.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoanInformationModule } from './modules/loan-information/loan-information.module';
 import { MortgageInformationModule } from './modules/mortgage-information/mortgage-information.module';
@@ -48,13 +47,7 @@ import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: `./env/.${process.env.NODE_ENV}.env`,
-      load: [
-        serverConfig,
-        databaseConfig,
-        jwtConfig,
-        throttlerConfig,
-        mailgunConfig,
-      ],
+      load: [serverConfig, databaseConfig, jwtConfig, throttlerConfig],
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
