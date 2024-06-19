@@ -7,7 +7,7 @@ export enum CountryCode {
   BRA = 'BRA',
   COL = 'COL',
   CHL = 'CHL',
-  DOM  = 'DOM'
+  DOM = 'DOM',
 }
 
 export class kycRequirements {
