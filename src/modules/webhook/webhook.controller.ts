@@ -1,4 +1,3 @@
-
 import {
   Controller,
   Get,
@@ -6,7 +5,7 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -25,7 +24,7 @@ import { EventDto } from './dtos/event.webhook.dto';
 @ApiTags('Webhook')
 @Controller('webhook')
 export class WebhookController {
-  constructor(private readonly webhookService: WebhookService) { }
+  constructor(private readonly webhookService: WebhookService) {}
 
   @SkipJwtAuth()
   @Get()
@@ -51,7 +50,7 @@ export class WebhookController {
     description: 'The Webhook has been successfully created.',
   })
   async create(@Body() webhook: CreateWebhookDto): Promise<ResponseDTO> {
-    return { data: await this.webhookService.create(webhook) }
+    return { data: await this.webhookService.create(webhook) };
   }
 
   @SkipJwtAuth()
@@ -62,7 +61,7 @@ export class WebhookController {
     description: 'The Webhook has been successfully created.',
   })
   async kyc(@Body() webhook: EventDto): Promise<ResponseDTO> {
-    return { data: await this.webhookService.generate(webhook) }
+    return { data: await this.webhookService.generate(webhook) };
   }
 
   @SkipJwtAuth()
@@ -73,7 +72,7 @@ export class WebhookController {
     description: 'The Webhook has been successfully created.',
   })
   async repayment(@Body() webhook: EventDto): Promise<ResponseDTO> {
-    return { data: await this.webhookService.generate(webhook) }
+    return { data: await this.webhookService.generate(webhook) };
   }
 
   @SkipJwtAuth()
@@ -84,9 +83,8 @@ export class WebhookController {
     description: 'The Webhook has been successfully created.',
   })
   async loan(@Body() webhook: EventDto): Promise<ResponseDTO> {
-    return { data: await this.webhookService.generate(webhook) }
+    return { data: await this.webhookService.generate(webhook) };
   }
-
 
   @SkipJwtAuth()
   @Put(':id')

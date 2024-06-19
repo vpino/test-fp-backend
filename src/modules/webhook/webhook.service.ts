@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { CrudService } from '../../common/services/crud/crud.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,6 +15,6 @@ export class WebhookService extends CrudService<Webhook> {
   }
 
   async generate(event: EventDto) {
-    return { message: "success" }
+    return { message: 'success' };
   }
 }

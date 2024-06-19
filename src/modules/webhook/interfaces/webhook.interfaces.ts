@@ -5,4 +5,3 @@ export interface IWebhook {
   statusTransaction: string;
   eventData: string;
 }
-

@@ -125,7 +125,7 @@ import { WebhookModule } from './modules/webhook/webhook.module';
     CreditCardModule,
     HomeLoanModule,
     BridgeLoanModule,
-    WebhookModule
+    WebhookModule,
   ],
   providers: [
     {

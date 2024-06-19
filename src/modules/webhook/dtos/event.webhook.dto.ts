@@ -20,7 +20,5 @@ export class EventDto {
 
   @ApiProperty()
   @IsOptional()
-  metadata: any
+  metadata: any;
 }
-
-
