@@ -11,5 +11,5 @@ import {
 export class CreateBridgeLoanDto {
   @ApiProperty()
   @IsString()
-  leadUuid: string;
+  partnerUuid: string;
 }

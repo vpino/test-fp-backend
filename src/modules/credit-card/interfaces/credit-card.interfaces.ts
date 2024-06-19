@@ -1,3 +1,3 @@
 export interface ICreditCard {
-  leadUuid: string;
+  partnerUuid: string;
 }

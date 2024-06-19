@@ -1,3 +1,3 @@
 export interface IBridgeLoan {
-  leadUuid: string;
+  partnerUuid: string;
 }

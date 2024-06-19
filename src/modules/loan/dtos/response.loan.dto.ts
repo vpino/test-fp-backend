@@ -65,7 +65,7 @@ export class PendingOriginatorDto {
 
 export class PersonalLoanResponseDto {
   uuid: string;
-  leadUuid: string;
+  partnerUuid: string;
   loanOffers: LoanOfferDto[];
   specialOffers: any[];
   savingsOffers: any[];

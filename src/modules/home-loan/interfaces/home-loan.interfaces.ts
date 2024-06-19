@@ -1,3 +1,3 @@
 export interface IHomeLoan {
-  leadUuid: string;
+  partnerUuid: string;
 }

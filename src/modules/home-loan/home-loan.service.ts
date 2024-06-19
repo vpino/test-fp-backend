@@ -80,7 +80,7 @@ export class HomeLoanService extends CrudService<HomeLoan> {
   generateResponse() {
     return {
       uuid: faker.string.uuid(),
-      leadUuid: faker.string.uuid(),
+      partnerUuid: faker.string.uuid(),
       loanOffers: [],
       specialOffers: [],
       savingsOffers: [],

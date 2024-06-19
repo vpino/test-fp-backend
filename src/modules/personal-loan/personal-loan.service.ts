@@ -265,7 +265,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
   generateLoans(personaLoan: CreateLoanDto) {
     const response = {
       uuid: faker.string.uuid(),
-      leadUuid: faker.string.uuid(),
+      partnerUuid: faker.string.uuid(),
       loanOffers: [],
       specialOffers: [],
       savingsOffers: [],

@@ -1,6 +1,4 @@
-// src/dto/create-customer.dto.ts
-
-import { IsUUID, IsArray, ArrayNotEmpty, IsEnum } from 'class-validator';
+import { IsUUID, IsArray, ArrayNotEmpty, IsEnum, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ProductType } from '../enums/product-type.enum';
 
@@ -18,6 +16,27 @@ export class CreateLoanDto {
   })
   @IsUUID()
   riskID: string;
+
+  @ApiProperty({
+    description: '',
+    example: 'debt consolidation',
+  })
+  @IsString()
+  loanPurpose: string;
+
+  @ApiProperty({
+    description: 'Loan amount',
+    example: '10.000',
+  })
+  @IsString()
+  loanAmount: string;
+
+  @ApiProperty({
+    description: 'Property status',
+    example: 'own',
+  })
+  @IsString()
+  propertyStatus: string;
 
   @ApiProperty({
     description: 'List of product types associated with the customer',

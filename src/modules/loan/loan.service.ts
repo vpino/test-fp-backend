@@ -231,7 +231,7 @@ export class LoanService extends CrudService<Loan> {
 
     const response: PersonalLoanResponseDto = {
       uuid: loanId,
-      leadUuid: uuidv4(),
+      partnerUuid: uuidv4(),
       loanOffers,
       specialOffers: [],
       savingsOffers: [],

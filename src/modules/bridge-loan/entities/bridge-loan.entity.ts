@@ -12,7 +12,7 @@ export class BridgeLoan {
   id: string;
 
   @Column({ nullable: true })
-  leadUuid: string;
+  partnerUuid: string;
 
   @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;

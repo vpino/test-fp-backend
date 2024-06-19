@@ -11,5 +11,5 @@ import {
 export class CreateCreditCardDto {
   @ApiProperty()
   @IsString()
-  leadUuid: string;
+  partnerUuid: string;
 }

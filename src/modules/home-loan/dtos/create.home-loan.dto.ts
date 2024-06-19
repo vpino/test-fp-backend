@@ -11,5 +11,5 @@ import {
 export class CreateHomeLoanDto {
   @ApiProperty()
   @IsString()
-  leadUuid: string;
+  partnerUuid: string;
 }

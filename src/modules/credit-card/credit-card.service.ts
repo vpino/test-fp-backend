@@ -101,7 +101,7 @@ export class CreditCardService extends CrudService<CreditCard> {
   generateResponse() {
     return {
       uuid: faker.datatype.uuid(),
-      leadUuid: faker.datatype.uuid(),
+      partnerUuid: faker.datatype.uuid(),
       loanOffers: [],
       specialOffers: [],
       savingsOffers: [],
