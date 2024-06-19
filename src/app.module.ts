@@ -42,6 +42,7 @@ import { PersonalLoanModule } from './modules/personal-loan/personal-loan.module
 import { CreditCardModule } from './modules/credit-card/credit-card.module';
 import { HomeLoanModule } from './modules/home-loan/home-loan.module';
 import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
+import { WebhookModule } from './modules/webhook/webhook.module';
 
 @Module({
   imports: [
@@ -124,6 +125,7 @@ import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
     CreditCardModule,
     HomeLoanModule,
     BridgeLoanModule,
+    WebhookModule
   ],
   providers: [
     {
