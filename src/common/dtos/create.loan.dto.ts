@@ -1,4 +1,10 @@
-import { IsUUID, IsArray, ArrayNotEmpty, IsEnum, IsString } from 'class-validator';
+import {
+  IsUUID,
+  IsArray,
+  ArrayNotEmpty,
+  IsEnum,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ProductType } from '../enums/product-type.enum';
 
