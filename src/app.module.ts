@@ -43,12 +43,20 @@ import { CreditCardModule } from './modules/credit-card/credit-card.module';
 import { HomeLoanModule } from './modules/home-loan/home-loan.module';
 import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
 import { WebhookModule } from './modules/webhook/webhook.module';
+import equifaxConfig from './config/equifax.config';
+import { EquifaxModule } from './modules/equifax/equifax.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: `./env/.${process.env.NODE_ENV}.env`,
-      load: [serverConfig, databaseConfig, jwtConfig, throttlerConfig],
+      load: [
+        serverConfig,
+        databaseConfig,
+        jwtConfig,
+        throttlerConfig,
+        equifaxConfig,
+      ],
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
@@ -126,6 +134,7 @@ import { WebhookModule } from './modules/webhook/webhook.module';
     HomeLoanModule,
     BridgeLoanModule,
     WebhookModule,
+    EquifaxModule,
   ],
   providers: [
     {
