@@ -26,6 +26,3 @@ export function decrypt(encryptedText: string): string {
   ]);
   return decrypted.toString();
 }
-
-// 'Encrypted Client ID:' '185b5c5d9ada76aed787998acb9ac4f284c689993c6a24ff5249d4796717879ee1003eb44f5cfdf0c4049815ade39060'
-// 'Encrypted Client Secret:' '94cecd343affc1b67480c8e3b6e8819f9a9923c3d4f46c562193335deb871da9'

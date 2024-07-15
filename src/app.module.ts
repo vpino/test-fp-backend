@@ -45,6 +45,8 @@ import { BridgeLoanModule } from './modules/bridge-loan/bridge-loan.module';
 import { WebhookModule } from './modules/webhook/webhook.module';
 import equifaxConfig from './config/equifax.config';
 import { EquifaxModule } from './modules/equifax/equifax.module';
+import { ExperianModule } from './modules/experian/experian.module';
+import experianConfig from './config/experian.config';
 
 @Module({
   imports: [
@@ -56,6 +58,7 @@ import { EquifaxModule } from './modules/equifax/equifax.module';
         jwtConfig,
         throttlerConfig,
         equifaxConfig,
+        experianConfig
       ],
       isGlobal: true,
     }),
@@ -135,6 +138,7 @@ import { EquifaxModule } from './modules/equifax/equifax.module';
     BridgeLoanModule,
     WebhookModule,
     EquifaxModule,
+    ExperianModule
   ],
   providers: [
     {
