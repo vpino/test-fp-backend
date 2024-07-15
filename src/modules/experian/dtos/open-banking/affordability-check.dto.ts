@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, ValidateNested, IsArray } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+  IsArray,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 class PaymentMethodDTO {
@@ -33,7 +41,10 @@ class CreditCardAccountDTO {
   @IsString()
   productType: string;
 
-  @ApiProperty({ description: 'Información adicional del producto', required: false })
+  @ApiProperty({
+    description: 'Información adicional del producto',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   productAdditionalInfo?: string;
@@ -42,7 +53,10 @@ class CreditCardAccountDTO {
   @IsString()
   creditCardNetwork: string;
 
-  @ApiProperty({ description: 'Información adicional de la red', required: false })
+  @ApiProperty({
+    description: 'Información adicional de la red',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   networkAdditionalInfo?: string;
@@ -183,7 +197,10 @@ class TransactionDTO {
   @IsString()
   transactionType: string;
 
-  @ApiProperty({ description: 'Información adicional de la transacción', required: false })
+  @ApiProperty({
+    description: 'Información adicional de la transacción',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   transactionalAdditionalInfo?: string;
@@ -196,7 +213,10 @@ class TransactionDTO {
   @IsString()
   feeType: string;
 
-  @ApiProperty({ description: 'Información adicional de la tarifa', required: false })
+  @ApiProperty({
+    description: 'Información adicional de la tarifa',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   feeTypeAdditionalInfo?: string;
@@ -205,7 +225,10 @@ class TransactionDTO {
   @IsString()
   otherCreditsType: string;
 
-  @ApiProperty({ description: 'Información adicional de otros créditos', required: false })
+  @ApiProperty({
+    description: 'Información adicional de otros créditos',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   otherCreditsAdditionalInfo?: string;
@@ -272,7 +295,10 @@ class CreditCardAccountLimitDTO {
   @IsString()
   lineName: string;
 
-  @ApiProperty({ description: 'Información adicional del nombre de la línea', required: false })
+  @ApiProperty({
+    description: 'Información adicional del nombre de la línea',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   lineNameAdditionalInfo?: string;

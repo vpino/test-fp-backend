@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsBoolean, IsDateString, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 // DTO para métodos de pago
@@ -23,7 +31,9 @@ class CreditCardAccountDTO {
   @IsString()
   brandName: string;
 
-  @ApiProperty({ description: 'CNPJ de la compañía emisora de la tarjeta de crédito' })
+  @ApiProperty({
+    description: 'CNPJ de la compañía emisora de la tarjeta de crédito',
+  })
   @IsString()
   companyCnpj: string;
 
@@ -35,7 +45,11 @@ class CreditCardAccountDTO {
   @IsString()
   productType: string;
 
-  @ApiProperty({ description: 'Información adicional sobre el producto de tarjeta de crédito', required: false })
+  @ApiProperty({
+    description:
+      'Información adicional sobre el producto de tarjeta de crédito',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   productAdditionalInfo?: string;
@@ -44,7 +58,10 @@ class CreditCardAccountDTO {
   @IsString()
   creditCardNetwork: string;
 
-  @ApiProperty({ description: 'Información adicional sobre la red de tarjeta de crédito', required: false })
+  @ApiProperty({
+    description: 'Información adicional sobre la red de tarjeta de crédito',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   networkAdditionalInfo?: string;
@@ -72,7 +89,10 @@ class FinanceChargesDTO {
   @IsString()
   type: string;
 
-  @ApiProperty({ description: 'Información adicional sobre el cargo financiero', required: false })
+  @ApiProperty({
+    description: 'Información adicional sobre el cargo financiero',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   additionalInfo?: string;
@@ -167,7 +187,9 @@ class TransactionDTO {
   @IsString()
   transactionName: string;
 
-  @ApiProperty({ description: 'ID de la factura relacionada con la transacción' })
+  @ApiProperty({
+    description: 'ID de la factura relacionada con la transacción',
+  })
   @IsString()
   billId: string;
 
@@ -179,7 +201,10 @@ class TransactionDTO {
   @IsString()
   transactionType: string;
 
-  @ApiProperty({ description: 'Información adicional de la transacción', required: false })
+  @ApiProperty({
+    description: 'Información adicional de la transacción',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   transactionalAdditionalInfo?: string;
@@ -192,7 +217,10 @@ class TransactionDTO {
   @IsString()
   feeType: string;
 
-  @ApiProperty({ description: 'Información adicional sobre la tarifa de la transacción', required: false })
+  @ApiProperty({
+    description: 'Información adicional sobre la tarifa de la transacción',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   feeTypeAdditionalInfo?: string;
@@ -201,7 +229,10 @@ class TransactionDTO {
   @IsString()
   otherCreditsType: string;
 
-  @ApiProperty({ description: 'Información adicional sobre otros créditos en la transacción', required: false })
+  @ApiProperty({
+    description: 'Información adicional sobre otros créditos en la transacción',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   otherCreditsAdditionalInfo?: string;
@@ -228,7 +259,9 @@ class TransactionDTO {
   @IsDateString()
   transactionDate: string;
 
-  @ApiProperty({ description: 'Fecha de publicación de la factura relacionada' })
+  @ApiProperty({
+    description: 'Fecha de publicación de la factura relacionada',
+  })
   @IsDateString()
   billPostDate: string;
 
@@ -270,7 +303,9 @@ class CreditCardAccountLimitDTO {
   @IsString()
   lineName: string;
 
-  @ApiProperty({ description: 'Información adicional sobre la línea de crédito' })
+  @ApiProperty({
+    description: 'Información adicional sobre la línea de crédito',
+  })
   @IsString()
   lineNameAdditionalInfo: string;
 
@@ -394,27 +429,40 @@ class AccountTransactionDTO {
   @IsDateString()
   transactionDate: string;
 
-  @ApiProperty({ description: 'CNPJ o CPF de la parte involucrada en la transacción' })
+  @ApiProperty({
+    description: 'CNPJ o CPF de la parte involucrada en la transacción',
+  })
   @IsString()
   partieCnpjCpf: string;
 
-  @ApiProperty({ description: 'Tipo de persona de la parte involucrada en la transacción' })
+  @ApiProperty({
+    description: 'Tipo de persona de la parte involucrada en la transacción',
+  })
   @IsString()
   partiePersonType: string;
 
-  @ApiProperty({ description: 'Código COMPE de la parte involucrada en la transacción' })
+  @ApiProperty({
+    description: 'Código COMPE de la parte involucrada en la transacción',
+  })
   @IsString()
   partieCompeCode: string;
 
-  @ApiProperty({ description: 'Código de sucursal de la parte involucrada en la transacción' })
+  @ApiProperty({
+    description: 'Código de sucursal de la parte involucrada en la transacción',
+  })
   @IsString()
   partieBranchCode: string;
 
-  @ApiProperty({ description: 'Número de cuenta de la parte involucrada en la transacción' })
+  @ApiProperty({
+    description: 'Número de cuenta de la parte involucrada en la transacción',
+  })
   @IsString()
   partieNumber: string;
 
-  @ApiProperty({ description: 'Dígito de verificación de la parte involucrada en la transacción' })
+  @ApiProperty({
+    description:
+      'Dígito de verificación de la parte involucrada en la transacción',
+  })
   @IsString()
   partieCheckDigit: string;
 }

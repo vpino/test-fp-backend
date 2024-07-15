@@ -21,7 +21,7 @@ export class TransactionCategoriserService {
     try {
       const url = `${this.baseUrl}${URLs.experian.transactionCategoriser.get}`;
       const headers = {
-        'accept': 'application/json',
+        accept: 'application/json',
         'Content-Type': 'application/json',
       };
 

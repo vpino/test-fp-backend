@@ -16,14 +16,17 @@ export class ExperianService extends CrudService<Experian> {
   private clientSecret: string;
 
   constructor(
-    @InjectRepository(Experian) private experianRepository: Repository<Experian>,
+    @InjectRepository(Experian)
+    private experianRepository: Repository<Experian>,
     private readonly dataSourceInject: DataSource,
     private readonly http: AxiosAdapter,
     private readonly configService: ConfigService,
   ) {
     super(experianRepository, 'id', dataSourceInject);
     this.baseUrl = this.configService.get<string>('experian.baseUrl');
-    this.clientId = decrypt(this.configService.get<string>('experian.clientId'));
+    this.clientId = decrypt(
+      this.configService.get<string>('experian.clientId'),
+    );
     this.clientSecret = decrypt(
       this.configService.get<string>('experian.clientSecret'),
     );

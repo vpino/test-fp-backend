@@ -32,7 +32,7 @@ export class ExperianController {
   constructor(
     private readonly experianService: ExperianService,
     private readonly transactionCategoriserService: TransactionCategoriserService,
-    private readonly openBankingService: OpenBankingService
+    private readonly openBankingService: OpenBankingService,
   ) {}
 
   @SkipJwtAuth()
@@ -53,7 +53,10 @@ export class ExperianController {
 
   @SkipJwtAuth()
   @Post('/transaction-categoriser')
-  @ApiOperation({ summary: 'It classifies consumer financial transactions from a list of 134 pre-determined categories.' })
+  @ApiOperation({
+    summary:
+      'It classifies consumer financial transactions from a list of 134 pre-determined categories.',
+  })
   @ApiResponse({
     status: 201,
     description: 'transaction categoriser',
@@ -79,14 +82,14 @@ export class ExperianController {
 
   @SkipJwtAuth()
   @Post('/affordability-check')
-  @ApiOperation({ summary: 'Checks if the customer can afford to make the payments.' })
+  @ApiOperation({
+    summary: 'Checks if the customer can afford to make the payments.',
+  })
   @ApiResponse({
     status: 201,
     description: '',
   })
-  async abilityPay(
-    @Body() data: AffordabilityCheckDTO,
-  ): Promise<ResponseDTO> {
+  async abilityPay(@Body() data: AffordabilityCheckDTO): Promise<ResponseDTO> {
     return { data: await this.openBankingService.abilityPay(data) };
   }
 
@@ -97,9 +100,7 @@ export class ExperianController {
     status: 201,
     description: '',
   })
-  async scores(
-    @Body() data: CreditScoreRequestDTO,
-  ): Promise<ResponseDTO> {
+  async scores(@Body() data: CreditScoreRequestDTO): Promise<ResponseDTO> {
     return { data: await this.openBankingService.getCreditScore(data) };
   }
 

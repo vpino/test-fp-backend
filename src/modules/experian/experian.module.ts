@@ -14,12 +14,8 @@ import { ExperianService } from './experian.service';
     ExperianService,
     AxiosAdapter,
     OpenBankingService,
-    TransactionCategoriserService
+    TransactionCategoriserService,
   ],
-  exports: [
-    ExperianService,
-    OpenBankingService,
-    TransactionCategoriserService
-  ],
+  exports: [ExperianService, OpenBankingService, TransactionCategoriserService],
 })
 export class ExperianModule {}

@@ -58,7 +58,7 @@ import experianConfig from './config/experian.config';
         jwtConfig,
         throttlerConfig,
         equifaxConfig,
-        experianConfig
+        experianConfig,
       ],
       isGlobal: true,
     }),
@@ -138,7 +138,7 @@ import experianConfig from './config/experian.config';
     BridgeLoanModule,
     WebhookModule,
     EquifaxModule,
-    ExperianModule
+    ExperianModule,
   ],
   providers: [
     {

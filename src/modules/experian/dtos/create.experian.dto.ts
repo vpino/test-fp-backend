@@ -1,8 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  ArrayNotEmpty,
-} from 'class-validator';
+import { IsBoolean, ArrayNotEmpty } from 'class-validator';
 
 export class CreateExperianDto {
   @ApiProperty()

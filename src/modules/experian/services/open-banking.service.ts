@@ -23,13 +23,15 @@ export class OpenBankingService {
     try {
       const url = `${this.baseUrl}${URLs.experian.openBanking.verifyIncome}`;
       const headers = {
-        'accept': 'application/json',
+        accept: 'application/json',
         'Content-Type': 'application/json',
       };
 
       return await this.http.post(url, data, { headers });
     } catch (error) {
-      throw new Error(`Failed to request incomeVerifications data: ${error.message}`);
+      throw new Error(
+        `Failed to request incomeVerifications data: ${error.message}`,
+      );
     }
   }
 
@@ -37,7 +39,7 @@ export class OpenBankingService {
     try {
       const url = `${this.baseUrl}${URLs.experian.openBanking.abilityPay}`;
       const headers = {
-        'accept': 'application/json',
+        accept: 'application/json',
         'Content-Type': 'application/json',
       };
 
@@ -49,12 +51,12 @@ export class OpenBankingService {
 
   async getCreditScore(data: CreditScoreRequestDTO): Promise<any> {
     try {
-      const targetUrl = URLs.experian.openBanking.targetUrlBankScore
+      const targetUrl = URLs.experian.openBanking.targetUrlBankScore;
 
-      const url = `${this.baseUrl}${URLs.experian.openBanking.bankScore}${targetUrl}`
+      const url = `${this.baseUrl}${URLs.experian.openBanking.bankScore}${targetUrl}`;
 
       const headers = {
-        'accept': 'application/json',
+        accept: 'application/json',
         'Content-Type': 'application/json',
       };
 
@@ -62,4 +64,5 @@ export class OpenBankingService {
     } catch (error) {
       throw new Error(`Failed to request bankScore data: ${error.message}`);
     }
-  }}
+  }
+}
