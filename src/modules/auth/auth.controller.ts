@@ -1,8 +1,9 @@
-import { Controller, Request, Post, Get, Body } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthValidation } from './dto/auth.validation.dto';
 import { SkipJwtAuth } from '../../common/decorators/skip-guard.decorator';
+import { CreateCustomerDto } from '../customer/dtos/create.customer.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -15,9 +16,10 @@ export class AuthController {
     return this.authService.login(body);
   }
 
-  @ApiBearerAuth()
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @SkipJwtAuth()
+  @Post('sign-up')
+  async signUp(@Body() body: CreateCustomerDto) {
+    return this.authService.signUp(body);
   }
+
 }

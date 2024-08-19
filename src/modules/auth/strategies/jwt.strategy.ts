@@ -2,15 +2,15 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UserService } from '../../user/user.service';
-import { User } from '../../user/entities/user.entity';
 import { ResponseDTO } from 'src/common/dtos/response.dto';
+import { CustomerService } from 'src/modules/customer/customer.service';
+import { Customer } from 'src/modules/customer/entities/customer.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     configService: ConfigService,
-    private userService: UserService,
+    private customerService: CustomerService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const response: ResponseDTO = await this.userService.findOne({
+    const response: ResponseDTO = await this.customerService.findOne({
       email: payload.email,
     });
 
@@ -27,12 +27,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       return null;
     }
 
-    const user = response.data as User;
+    const customer = response.data as Customer;
 
     return {
-      email: user.email,
+      email: customer.email,
       phone: '',
-      name: '',
     };
   }
 }

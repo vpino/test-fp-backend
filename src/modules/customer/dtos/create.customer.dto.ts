@@ -48,6 +48,15 @@ export class CreateCustomerDto {
   type: TypeCustomer;
 
   @ApiProperty({
+    description: 'Password of the customer',
+    example: 'strongpassword123',
+    required: true,
+  })
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @ApiProperty({
     description: 'Indicates if the customer is active',
     example: true,
     required: false,

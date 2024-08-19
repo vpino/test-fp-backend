@@ -20,7 +20,6 @@ import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dtos/create.customer.dto';
 import { kycRequirements } from './dtos/kyc.requirements.dto';
 import { SkipJwtAuth } from 'src/common/decorators/skip-guard.decorator';
-import { CreateIndividualCustomerDto } from '../individual-customer/dtos/create.individual-customer.dto';
 import { SubmitKycDto } from './dtos/submit.kyc.dto';
 import { UpdateKycDto } from './dtos/update.kyc.dto';
 

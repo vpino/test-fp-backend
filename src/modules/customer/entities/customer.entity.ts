@@ -6,8 +6,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
+import * as bcrypt from 'bcrypt';
+
 
 @Entity()
 export class Customer {
@@ -23,6 +26,9 @@ export class Customer {
 
   @Column({ type: 'enum', enum: TypeCustomer, nullable: true })
   type: TypeCustomer;
+
+  @Column({ nullable: true })
+  password: string;
 
   @Column({ type: 'boolean', default: true, nullable: true })
   isActive: boolean;
@@ -43,4 +49,13 @@ export class Customer {
     nullable: true,
   })
   updatedAt?: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    if (this.password) {
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
+    }
+  }
 }

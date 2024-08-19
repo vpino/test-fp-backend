@@ -13,7 +13,6 @@ import { Customer } from './entities/customer.entity';
 import { ResponseDTO } from 'src/common/dtos';
 import { CreateIndividualCustomerDto } from '../individual-customer/dtos/create.individual-customer.dto';
 import { IndividualCustomerService } from '../individual-customer/individual-customer.service';
-import { IndividualCustomer } from '../individual-customer/entities/individual-customer.entity';
 import { isValidUUID } from 'src/common/functions/valid-uuid.function';
 import { CreateCustomerDto } from './dtos/create.customer.dto';
 import { IResponseCustomer } from './interfaces/response.customer.interface';
@@ -37,12 +36,14 @@ export class CustomerService extends CrudService<Customer> {
 
       if (email?.data) throw new ConflictException('Email already registered');
 
-      const phoneNumber = await this.findOne({
-        phoneNumber: payload.phoneNumber,
-      });
+      if (payload.phoneNumber) {
+        const phoneNumber = await this.findOne({
+          phoneNumber: payload.phoneNumber,
+        });
 
-      if (phoneNumber?.data)
-        throw new ConflictException('Phone number already registered');
+        if (phoneNumber?.data)
+          throw new ConflictException('Phone number already registered');
+      }
 
       const newCustomer = await this.customerRepository.create(payload);
       const createdCustomer = await this.customerRepository.save(newCustomer);
