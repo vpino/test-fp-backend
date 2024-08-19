@@ -11,7 +11,6 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-
 @Entity()
 export class Customer {
   @PrimaryGeneratedColumn('uuid')

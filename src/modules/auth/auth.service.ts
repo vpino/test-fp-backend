@@ -54,6 +54,6 @@ export class AuthService {
   }
 
   async signUp(data: CreateCustomerDto): Promise<ResponseDTO> {
-    return await this.customerService.save(data)
+    return await this.customerService.save(data);
   }
 }
