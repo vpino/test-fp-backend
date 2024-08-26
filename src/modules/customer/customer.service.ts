@@ -18,6 +18,9 @@ import { CreateCustomerDto } from './dtos/create.customer.dto';
 import { IResponseCustomer } from './interfaces/response.customer.interface';
 import { IResponseIndividualCustomer } from './interfaces/response.individual-customer.interface';
 import { StatusKyc } from 'src/common/enums/customer.enums';
+import { IndividualCustomer } from '../individual-customer/entities/individual-customer.entity';
+import { LoadNamesDTO } from '../individual-customer/dtos/load-names.dto';
+import { StatusOnboarding } from '../individual-customer/enums/individual-customer.enum';
 
 @Injectable()
 export class CustomerService extends CrudService<Customer> {
@@ -296,6 +299,52 @@ export class CustomerService extends CrudService<Customer> {
       };
 
       return { data: response };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findOrCreateIndividualCustomer(
+    customerId: string,
+  ): Promise<IndividualCustomer> {
+    const customer = await this.customerRepository.findOne({
+      where: { id: customerId },
+    });
+
+    if (!customer) {
+      throw new NotFoundException(`Customer with ID ${customerId} not found`);
+    }
+
+    let individualCustomer = await this.individualCustomerService.findOne(
+      { customerId: { id: customerId } },
+    );
+
+    if (!individualCustomer.data) {
+      const newIndividualCustomer = await this.individualCustomerService.create({
+        customerId: customer,
+      });
+
+      individualCustomer.data = newIndividualCustomer;
+    }
+
+    return individualCustomer.data;
+  }
+
+  async updateLoadNames(
+    id: string,
+    loadNamesDTO: LoadNamesDTO,
+  ): Promise<ResponseDTO> {
+    try {
+      const individualCustomer = await this.findOrCreateIndividualCustomer(id);
+
+      individualCustomer.firstName = loadNamesDTO.firstName;
+      individualCustomer.lastName = loadNamesDTO.lastName;
+      individualCustomer.status = StatusOnboarding.IDENTITY_DOCUMENT;
+
+      return await this.individualCustomerService.update(
+        individualCustomer.id,
+        individualCustomer,
+      );
     } catch (error) {
       throw error;
     }

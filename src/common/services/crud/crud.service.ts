@@ -2,7 +2,6 @@ import {
   Injectable,
   BadRequestException,
   ConflictException,
-  Inject,
 } from '@nestjs/common';
 import {
   Repository,

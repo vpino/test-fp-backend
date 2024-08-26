@@ -6,10 +6,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
   JoinColumn,
   OneToOne,
 } from 'typeorm';
+import { StatusOnboarding } from '../enums/individual-customer.enum';
 
 @Entity()
 export class IndividualCustomer {
@@ -53,6 +53,60 @@ export class IndividualCustomer {
   @Column({ type: 'varchar', length: 200, nullable: true })
   addressExtension: string;
 
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  typeDocument: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  town: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  housingType: string;
+
+  @Column({ type: 'varchar', length: 4, nullable: true })
+  housingYear: string;
+
+  @Column({ type: 'varchar', length: 2, nullable: true })
+  housingMonth: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  educationLevel: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  educationArea: string;
+
+  @Column({ type: 'varchar', length: 4, nullable: true })
+  educationYear: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  occupation: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  typeBusiness: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  companyName: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: true })
+  companyPhone: string;
+
+  @Column({ type: 'varchar', length: 200, nullable: true })
+  companyAddress: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  companyCity: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  companyState: string;
+
+  @Column({ type: 'varchar', length: 4, nullable: true })
+  companyYear: string;
+
+  @Column({ type: 'varchar', length: 2, nullable: true })
+  companyMonth: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: true })
+  phone: string;
+
   @Column({
     type: 'enum',
     enum: StatusKyc,
@@ -60,6 +114,14 @@ export class IndividualCustomer {
     nullable: true,
   })
   statusKyc: StatusKyc;
+
+  @Column({
+    type: 'enum',
+    enum: StatusOnboarding,
+    default: StatusOnboarding.LOAD_NAMES,
+    nullable: true,
+  })
+  status: StatusOnboarding;
 
   @Column({ nullable: true, default: null })
   verificationSessionId: string;

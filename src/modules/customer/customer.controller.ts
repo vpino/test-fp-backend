@@ -22,6 +22,7 @@ import { kycRequirements } from './dtos/kyc.requirements.dto';
 import { SkipJwtAuth } from 'src/common/decorators/skip-guard.decorator';
 import { SubmitKycDto } from './dtos/submit.kyc.dto';
 import { UpdateKycDto } from './dtos/update.kyc.dto';
+import { LoadNamesDTO } from '../individual-customer/dtos/load-names.dto';
 
 @ApiBearerAuth('JWT-auth')
 @ApiTags('Customer')
@@ -125,4 +126,20 @@ export class CustomerController {
       return error;
     }
   }
+
+
+  @Put(':id/load-names')
+  @ApiOperation({ summary: 'Load Names for an individual customer' })
+  @ApiResponse({
+    status: 200,
+    description: 'The names have been successfully loaded.',
+  })
+  async updateLoadNames(
+    @Param('id') id: string,
+    @Body() loadNamesDTO: LoadNamesDTO,
+  ): Promise<ResponseDTO> {
+    const data = await this.customerService.updateLoadNames(id, loadNamesDTO);
+    return { data };
+  }
+
 }
