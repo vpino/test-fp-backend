@@ -20,7 +20,10 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateCustomer(email: string, password: string): Promise<LoginResponse> {
+  async validateCustomer(
+    email: string,
+    password: string,
+  ): Promise<LoginResponse> {
     const response: ResponseDTO<Customer> = await this.customerService.findOne({
       email,
     });
@@ -31,11 +34,12 @@ export class AuthService {
 
     const customer = response.data;
 
-    const individualCustomer: ResponseDTO<IndividualCustomer> = await this.individualCustomerService.findOne(
-      { customerId: { id: customer.id } }
-    );
+    const individualCustomer: ResponseDTO<IndividualCustomer> =
+      await this.individualCustomerService.findOne({
+        customerId: { id: customer.id },
+      });
 
-    const individual = individualCustomer.data
+    const individual = individualCustomer.data;
 
     const comparePass = await bcrypt.compare(password, customer.password);
 
@@ -43,7 +47,7 @@ export class AuthService {
       throw new UnauthorizedException(MESSAGES.INVALID_CREDENTIALS_ERROR);
     }
 
-    return {customer, individual};
+    return { customer, individual };
   }
 
   async login(data: AuthValidation): Promise<ResponseDTO> {
@@ -58,10 +62,10 @@ export class AuthService {
 
     return {
       data: {
-        status: response.customer.isActive,
+        status: response?.customer?.isActive,
         access_token: accessToken,
-        individual: response.individual,
-        id: response.customer.id
+        individual: response?.individual,
+        id: response?.customer?.id,
       },
     };
   }

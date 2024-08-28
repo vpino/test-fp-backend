@@ -315,14 +315,16 @@ export class CustomerService extends CrudService<Customer> {
       throw new NotFoundException(`Customer with ID ${customerId} not found`);
     }
 
-    let individualCustomer = await this.individualCustomerService.findOne(
-      { customerId: { id: customerId } },
-    );
+    let individualCustomer = await this.individualCustomerService.findOne({
+      customerId: { id: customerId },
+    });
 
     if (!individualCustomer.data) {
-      const newIndividualCustomer = await this.individualCustomerService.create({
-        customerId: customer,
-      });
+      const newIndividualCustomer = await this.individualCustomerService.create(
+        {
+          customerId: customer,
+        },
+      );
 
       individualCustomer.data = newIndividualCustomer;
     }

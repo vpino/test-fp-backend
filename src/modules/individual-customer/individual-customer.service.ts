@@ -10,6 +10,7 @@ import { EducationDataDTO } from './dtos/education-data.dto';
 import { HousingDataDTO } from './dtos/housing-data.dto';
 import { IdentityDocumentDTO } from './dtos/identity-document.dto';
 import { OccupationDTO } from './dtos/occupation.dto';
+import { StatusOnboarding } from './enums/individual-customer.enum';
 
 @Injectable()
 export class IndividualCustomerService extends CrudService<IndividualCustomer> {
@@ -40,6 +41,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     individualCustomer.country = identityDocumentDTO.country;
     individualCustomer.typeDocument = identityDocumentDTO.typeDocument;
     individualCustomer.dni = identityDocumentDTO.dni;
+    individualCustomer.status = StatusOnboarding.ADDRESS;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 
@@ -52,6 +55,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     individualCustomer.state = addressDTO.state;
     individualCustomer.city = addressDTO.city;
     individualCustomer.town = addressDTO.town;
+    individualCustomer.status = StatusOnboarding.HOUSING;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 
@@ -63,6 +68,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     individualCustomer.housingType = housingDataDTO.type;
     individualCustomer.housingYear = housingDataDTO.year;
     individualCustomer.housingMonth = housingDataDTO.month;
+    individualCustomer.status = StatusOnboarding.EDUCATION;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 
@@ -74,6 +81,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     individualCustomer.educationLevel = educationDataDTO.level;
     individualCustomer.educationArea = educationDataDTO.area;
     individualCustomer.educationYear = educationDataDTO.year;
+    individualCustomer.status = StatusOnboarding.OCCUPATION;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 
@@ -84,6 +93,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     const individualCustomer = await this.findCustomerById(id);
     individualCustomer.occupation = occupationDTO.occupation;
     individualCustomer.typeBusiness = occupationDTO.typeBusiness;
+    individualCustomer.status = StatusOnboarding.COMPANY;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 
@@ -99,6 +110,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     individualCustomer.companyCity = companyInfoDTO.city;
     individualCustomer.companyYear = companyInfoDTO.year;
     individualCustomer.companyMonth = companyInfoDTO.month;
+    individualCustomer.status = StatusOnboarding.CONTACT;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 
@@ -108,6 +121,8 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
   ): Promise<IndividualCustomer> {
     const individualCustomer = await this.findCustomerById(id);
     individualCustomer.phone = contactInfoDTO.phone;
+    individualCustomer.status = StatusOnboarding.COMPLETE;
+
     return this.individualCustomerRepository.save(individualCustomer);
   }
 }

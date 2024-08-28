@@ -127,7 +127,6 @@ export class CustomerController {
     }
   }
 
-
   @Put(':id/load-names')
   @ApiOperation({ summary: 'Load Names for an individual customer' })
   @ApiResponse({
@@ -141,5 +140,4 @@ export class CustomerController {
     const data = await this.customerService.updateLoadNames(id, loadNamesDTO);
     return { data };
   }
-
 }

@@ -6,5 +6,6 @@ export enum StatusOnboarding {
   EDUCATION = 'EDUCATION',
   OCCUPATION = 'OCCUPATION',
   COMPANY = 'COMPANY',
-  CONTACT = 'CONTACT'
+  CONTACT = 'CONTACT',
+  COMPLETE = 'COMPLETE'
 }
