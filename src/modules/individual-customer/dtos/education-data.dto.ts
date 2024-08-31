@@ -8,7 +8,7 @@ export class EducationDataDTO {
   })
   @IsString()
   @Length(1, 100)
-  level: string;
+  educationLevel: string;
 
   @ApiProperty({
     description: 'Area of specialization',
@@ -16,7 +16,7 @@ export class EducationDataDTO {
   })
   @IsString()
   @Length(1, 100)
-  area: string;
+  educationArea: string;
 
   @ApiProperty({
     description: 'Year of graduation or last year attended',
@@ -24,5 +24,5 @@ export class EducationDataDTO {
   })
   @IsNumberString()
   @Length(4, 4)
-  year: string;
+  educationYear: string;
 }

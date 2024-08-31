@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, Length, IsNumberString } from 'class-validator';
+import { IsString, Length } from 'class-validator';
 
 export class HousingDataDTO {
   @ApiProperty({
@@ -8,15 +8,15 @@ export class HousingDataDTO {
   })
   @IsString()
   @Length(1, 100)
-  type: string;
+  housingType: string;
 
   @ApiProperty({
     description: 'Year of purchase or construction',
     example: '2010',
   })
-  @IsNumberString()
-  @Length(4, 4)
-  year: string;
+  @IsString()
+  @Length(4, 50)
+  housingYear: string;
 
   @ApiProperty({
     description: 'Month of purchase or construction',
@@ -24,5 +24,5 @@ export class HousingDataDTO {
   })
   @IsString()
   @Length(1, 50)
-  month: string;
+  housingMonth: string;
 }

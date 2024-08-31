@@ -65,9 +65,9 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     housingDataDTO: HousingDataDTO,
   ): Promise<IndividualCustomer> {
     const individualCustomer = await this.findCustomerById(id);
-    individualCustomer.housingType = housingDataDTO.type;
-    individualCustomer.housingYear = housingDataDTO.year;
-    individualCustomer.housingMonth = housingDataDTO.month;
+    individualCustomer.housingType = housingDataDTO.housingType;
+    individualCustomer.housingYear = housingDataDTO.housingYear;
+    individualCustomer.housingMonth = housingDataDTO.housingMonth;
     individualCustomer.status = StatusOnboarding.EDUCATION;
 
     return this.individualCustomerRepository.save(individualCustomer);
@@ -78,9 +78,9 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     educationDataDTO: EducationDataDTO,
   ): Promise<IndividualCustomer> {
     const individualCustomer = await this.findCustomerById(id);
-    individualCustomer.educationLevel = educationDataDTO.level;
-    individualCustomer.educationArea = educationDataDTO.area;
-    individualCustomer.educationYear = educationDataDTO.year;
+    individualCustomer.educationLevel = educationDataDTO.educationLevel;
+    individualCustomer.educationArea = educationDataDTO.educationArea;
+    individualCustomer.educationYear = educationDataDTO.educationYear;
     individualCustomer.status = StatusOnboarding.OCCUPATION;
 
     return this.individualCustomerRepository.save(individualCustomer);
@@ -103,13 +103,14 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
     companyInfoDTO: CompanyInfoDTO,
   ): Promise<IndividualCustomer> {
     const individualCustomer = await this.findCustomerById(id);
-    individualCustomer.companyName = companyInfoDTO.name;
-    individualCustomer.companyPhone = companyInfoDTO.phone;
-    individualCustomer.companyAddress = companyInfoDTO.address;
-    individualCustomer.companyState = companyInfoDTO.state;
-    individualCustomer.companyCity = companyInfoDTO.city;
-    individualCustomer.companyYear = companyInfoDTO.year;
-    individualCustomer.companyMonth = companyInfoDTO.month;
+    individualCustomer.companyName = companyInfoDTO.companyName;
+    individualCustomer.companyPhone = companyInfoDTO.companyPhone;
+    individualCustomer.companyAddress = companyInfoDTO.companyAddress;
+    individualCustomer.companyState = companyInfoDTO.companyState;
+    individualCustomer.companyCity = companyInfoDTO.companyCity;
+    individualCustomer.companyTown = companyInfoDTO.companyTown;
+    individualCustomer.companyYear = companyInfoDTO.companyYear;
+    individualCustomer.companyMonth = companyInfoDTO.companyMonth;
     individualCustomer.status = StatusOnboarding.CONTACT;
 
     return this.individualCustomerRepository.save(individualCustomer);
@@ -121,7 +122,7 @@ export class IndividualCustomerService extends CrudService<IndividualCustomer> {
   ): Promise<IndividualCustomer> {
     const individualCustomer = await this.findCustomerById(id);
     individualCustomer.phone = contactInfoDTO.phone;
-    individualCustomer.status = StatusOnboarding.COMPLETE;
+    individualCustomer.status = StatusOnboarding.COMPLETED;
 
     return this.individualCustomerRepository.save(individualCustomer);
   }

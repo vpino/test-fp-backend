@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
-  Length,
-  IsPhoneNumber,
-  IsNumberString,
+  Length
 } from 'class-validator';
 
 export class CompanyInfoDTO {
@@ -13,14 +11,14 @@ export class CompanyInfoDTO {
   })
   @IsString()
   @Length(1, 100)
-  name: string;
+  companyName: string;
 
   @ApiProperty({
     description: 'Phone number of the company',
     example: '+1-800-123-4567',
   })
-  @IsPhoneNumber(null)
-  phone: string;
+  @IsString()
+  companyPhone: string;
 
   @ApiProperty({
     description: 'Address of the company',
@@ -28,7 +26,7 @@ export class CompanyInfoDTO {
   })
   @IsString()
   @Length(1, 200)
-  address: string;
+  companyAddress: string;
 
   @ApiProperty({
     description: 'State where the company is located',
@@ -36,7 +34,7 @@ export class CompanyInfoDTO {
   })
   @IsString()
   @Length(1, 100)
-  state: string;
+  companyState: string;
 
   @ApiProperty({
     description: 'City where the company is located',
@@ -44,15 +42,23 @@ export class CompanyInfoDTO {
   })
   @IsString()
   @Length(1, 100)
-  city: string;
+  companyCity: string;
+
+  @ApiProperty({
+    description: 'Town where the company is located',
+    example: 'New York Town',
+  })
+  @IsString()
+  @Length(1, 100)
+  companyTown: string;
 
   @ApiProperty({
     description: 'Year the company was founded or the individual joined',
     example: '2015',
   })
-  @IsNumberString()
-  @Length(4, 4)
-  year: string;
+  @IsString()
+  @Length(4, 10)
+  companyYear: string;
 
   @ApiProperty({
     description: 'Month the company was founded or the individual joined',
@@ -60,5 +66,5 @@ export class CompanyInfoDTO {
   })
   @IsString()
   @Length(1, 50)
-  month: string;
+  companyMonth: string;
 }

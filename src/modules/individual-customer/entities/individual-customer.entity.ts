@@ -62,10 +62,10 @@ export class IndividualCustomer {
   @Column({ type: 'varchar', length: 100, nullable: true })
   housingType: string;
 
-  @Column({ type: 'varchar', length: 4, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   housingYear: string;
 
-  @Column({ type: 'varchar', length: 2, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   housingMonth: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
@@ -86,22 +86,25 @@ export class IndividualCustomer {
   @Column({ type: 'varchar', length: 100, nullable: true })
   companyName: string;
 
-  @Column({ type: 'varchar', length: 15, nullable: true })
+  @Column({ type: 'varchar', length: 30, nullable: true })
   companyPhone: string;
 
   @Column({ type: 'varchar', length: 200, nullable: true })
   companyAddress: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
+  companyState: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
   companyCity: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  companyState: string;
+  companyTown: string;
 
-  @Column({ type: 'varchar', length: 4, nullable: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   companyYear: string;
 
-  @Column({ type: 'varchar', length: 2, nullable: true })
+  @Column({ type: 'varchar', length: 30, nullable: true })
   companyMonth: string;
 
   @Column({ type: 'varchar', length: 15, nullable: true })
