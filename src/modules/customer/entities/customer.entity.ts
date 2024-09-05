@@ -8,8 +8,10 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { PersonalLoan } from 'src/modules/personal-loan/entities/personal-loan.entity';
 
 @Entity()
 export class Customer {
@@ -57,4 +59,7 @@ export class Customer {
       this.password = await bcrypt.hash(this.password, salt);
     }
   }
+
+  @OneToMany(() => PersonalLoan, (personalLoan) => personalLoan.customer)
+  personalLoans: PersonalLoan[];
 }

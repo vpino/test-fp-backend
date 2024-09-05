@@ -45,9 +45,8 @@ export class ParamsDTO<T> {
 
   @ApiProperty({ description: 'Number of records to skip' })
   @IsOptional()
-  @IsPositive()
   @IsNumber()
-  @Min(1)
+  @Min(0)
   skip?: number;
 
   @ApiProperty({ description: 'Fields to select in the query' })

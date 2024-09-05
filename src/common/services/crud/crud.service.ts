@@ -33,22 +33,24 @@ export class CrudService<T> {
   }
 
   async getAll(params: ParamsDTO<T>): Promise<ResponseDTO> {
-    const options: FindManyOptions<T> = {
-      where: params.filter,
-      order: params.sort as FindOptionsOrder<T>,
-      skip: params.skip,
-      take: params.limit,
-      select: this.mapSelectFields(params.fieldSelected) ?? undefined,
-      relations: params.relations,
-    };
-
-    let count = 0;
-    if (params.limit > 0) {
-      count = await this.count(params.filter);
-    }
-
     try {
-      const data = await this.repository.find(options);
+      const options: FindManyOptions<T> = {
+        where: params.filter,
+        order: params.sort as FindOptionsOrder<T>,
+        skip: params.skip,
+        take: params.limit,
+        select: this.mapSelectFields(params.fieldSelected) ?? undefined,
+        relations: params.relations,
+      };
+
+      let count = 0;
+      if (params.limit > 0) {
+        count = await this.count(params.filter);
+      }
+
+      const cleanedOptions = this.cleanOptions(options);
+
+      const data = await this.repository.find(cleanedOptions);
       return { data, count, skip: +params.skip, limit: +params.limit };
     } catch (error) {
       console.error(error, 'getAll error crud');
@@ -62,11 +64,16 @@ export class CrudService<T> {
     relations: string[] = [],
   ): Promise<ResponseDTO> {
     try {
-      const response = await this.repository.findOne({
+      const options: FindManyOptions<T> = {
         where: data,
+        order: data.sort as FindOptionsOrder<T>,
         select: this.mapSelectFields(fieldSelected as any) ?? undefined,
-        relations,
-      });
+        relations
+      };
+
+      const cleanedOptions = this.cleanOptions(options);
+
+      const response = await this.repository.findOne(cleanedOptions);
 
       return { data: response };
     } catch (error) {
@@ -165,5 +172,23 @@ export class CrudService<T> {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  cleanOptions<T>(obj: T): T {
+    const cleanedObject = Object.entries(obj).reduce((acc, [key, value]) => {
+      if (value === undefined || value === '' || (typeof value === 'object' && value !== null && !Array.isArray(value) && Object.keys(value).length === 0)) {
+        return acc;
+      }
+
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        acc[key] = this.cleanOptions(value);
+      } else {
+        acc[key] = value;
+      }
+
+      return acc;
+    }, {} as T);
+
+    return cleanedObject;
   }
 }

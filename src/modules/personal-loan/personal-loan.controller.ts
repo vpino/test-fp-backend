@@ -14,57 +14,47 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ResponseDTO } from '../../common/dtos/response.dto';
-import { SkipJwtAuth } from 'src/common/decorators/skip-guard.decorator';
 import { PersonalLoanService } from './personal-loan.service';
 import { CreatePersonalLoanDto } from './dtos/create.personal-loan.dto';
 import { UpdatePersonalLoanDto } from './dtos/update.personal-loan.dto';
-import { CreateLoanDto } from 'src/common/dtos/create.loan.dto';
+import { LoanDetailsMounthlyDto } from './dtos/loan-details-mounthly.dto';
+import { UpdateTermsLoanDto } from './dtos/update.terms-loan.dto';
+import { UpdateAssetsDto } from './dtos/update.assets.dto';
+import { UpdateTermsAndConditionsDto } from './dtos/update.terms-and-conditions.dto';
+import { ParamsDTO } from 'src/common/dtos';
 
 @ApiBearerAuth('JWT-auth')
-@ApiTags('Loan')
-@Controller('loan')
+@ApiTags('PersonalLoan')
+@Controller('personal-loan')
 export class PersonalLoanController {
-  constructor(private readonly personaLoanService: PersonalLoanService) {}
+  constructor(private readonly personalLoanService: PersonalLoanService) {}
 
-  @SkipJwtAuth()
   @Get()
   @ApiOperation({ summary: 'Get all PersonalLoans' })
   @ApiResponse({ status: 200, description: 'Return all PersonalLoans' })
   async getAll(): Promise<ResponseDTO> {
-    return await this.personaLoanService.getAll({});
+    return await this.personalLoanService.getAll({});
   }
 
-  @SkipJwtAuth()
   @Get(':id')
   @ApiOperation({ summary: 'Get a PersonalLoan by id' })
   @ApiResponse({ status: 200, description: 'Return a PersonalLoan' })
   async getOne(@Param('id') id: string): Promise<ResponseDTO> {
-    return await this.personaLoanService.findOne({ id });
+    return await this.personalLoanService.findOne({ id });
   }
 
-  // @SkipJwtAuth()
-  // @Post()
-  // @ApiOperation({ summary: 'Create a new PersonalLoan' })
-  // @ApiResponse({
-  //   status: 201,
-  //   description: 'The PersonalLoan has been successfully created.',
-  // })
-  // async create(@Body() personaLoan: CreatePersonalLoanDto): Promise<ResponseDTO> {
-  //   return { data: await this.personaLoanService.create(personaLoan) }
-  // }
-
-  @SkipJwtAuth()
   @Post()
   @ApiOperation({ summary: 'Create a new PersonalLoan' })
   @ApiResponse({
     status: 201,
     description: 'The PersonalLoan has been successfully created.',
   })
-  async create(@Body() personaLoan: CreateLoanDto): Promise<any> {
-    return await this.personaLoanService.generateLoans(personaLoan);
+  async create(
+    @Body() personalLoan: CreatePersonalLoanDto,
+  ): Promise<ResponseDTO> {
+    return { data: await this.personalLoanService.create(personalLoan) };
   }
 
-  @SkipJwtAuth()
   @Put(':id')
   @ApiOperation({ summary: 'Update a PersonalLoan' })
   @ApiResponse({
@@ -73,9 +63,9 @@ export class PersonalLoanController {
   })
   async update(
     @Param('id') id: string,
-    @Body() personaLoan: UpdatePersonalLoanDto,
+    @Body() personalLoan: UpdatePersonalLoanDto,
   ): Promise<ResponseDTO> {
-    return await this.personaLoanService.update(id, personaLoan);
+    return await this.personalLoanService.update(id, personalLoan);
   }
 
   @Delete(':id')
@@ -85,6 +75,67 @@ export class PersonalLoanController {
     description: 'The PersonalLoan has been successfully deleted.',
   })
   async delete(@Param('id') id: string): Promise<ResponseDTO> {
-    return await this.personaLoanService.deleteOne({ id });
+    return await this.personalLoanService.deleteOne({ id });
+  }
+
+  @Put(':customerId/details-mounthly')
+  async loanDetailsMounthly(
+    @Param('customerId') customerId: string,
+    @Body() loanDetailsMounthlyDto: LoanDetailsMounthlyDto,
+  ) {
+    return this.personalLoanService.loanDetailsMounthly(
+      customerId,
+      loanDetailsMounthlyDto,
+    );
+  }
+
+  @Put(':id/update-terms')
+  async updateTermsLoan(
+    @Param('id') id: string,
+    @Body() updateTermsLoanDto: UpdateTermsLoanDto,
+  ) {
+    return this.personalLoanService.updateTermsLoan(id, updateTermsLoanDto);
+  }
+
+  @Put(':id/update-assets')
+  async updateAssets(
+    @Param('id') id: string,
+    @Body() updateAssetsDto: UpdateAssetsDto,
+  ) {
+    return this.personalLoanService.updateAssets(id, updateAssetsDto);
+  }
+
+  @Put(':id/accept-tc')
+  async updateTermsAndConditions(
+    @Param('id') id: string,
+    @Body() updateTermsAndConditionsDto: UpdateTermsAndConditionsDto,
+  ) {
+    return this.personalLoanService.updateTermsAndConditions(
+      id,
+      updateTermsAndConditionsDto,
+    );
+  }
+
+  @Post('/get-all-by-customer')
+  @ApiOperation({ summary: 'Get a PersonalLoan by id' })
+  @ApiResponse({ status: 200, description: 'Return a PersonalLoan' })
+  async getAllByCustomer(@Body() params: ParamsDTO<any>): Promise<ResponseDTO> {
+    return await this.personalLoanService.getAll(params);
+  }
+
+  @Get(':id/get-last-created')
+  @ApiOperation({ summary: 'Get the last created PersonalLoan by customer id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return the last created PersonalLoan',
+  })
+  async getLastCreated(
+    @Param('id') customerId: string,
+  ): Promise<ResponseDTO> {
+    return await this.personalLoanService.findOne(
+      {
+        customer: { id: customerId },
+      }
+    );
   }
 }
