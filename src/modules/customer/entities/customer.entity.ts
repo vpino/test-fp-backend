@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { PersonalLoan } from 'src/modules/personal-loan/entities/personal-loan.entity';
+import { HomeLoan } from 'src/modules/home-loan/entities/home-loan.entity';
 
 @Entity()
 export class Customer {
@@ -62,4 +63,7 @@ export class Customer {
 
   @OneToMany(() => PersonalLoan, (personalLoan) => personalLoan.customer)
   personalLoans: PersonalLoan[];
+
+  @OneToMany(() => HomeLoan, (homeLoan) => homeLoan.customer)
+  homeLoans: HomeLoan[];
 }

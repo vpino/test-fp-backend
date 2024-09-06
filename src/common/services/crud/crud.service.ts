@@ -68,7 +68,7 @@ export class CrudService<T> {
         where: data,
         order: data.sort as FindOptionsOrder<T>,
         select: this.mapSelectFields(fieldSelected as any) ?? undefined,
-        relations
+        relations,
       };
 
       const cleanedOptions = this.cleanOptions(options);
@@ -176,11 +176,22 @@ export class CrudService<T> {
 
   cleanOptions<T>(obj: T): T {
     const cleanedObject = Object.entries(obj).reduce((acc, [key, value]) => {
-      if (value === undefined || value === '' || (typeof value === 'object' && value !== null && !Array.isArray(value) && Object.keys(value).length === 0)) {
+      if (
+        value === undefined ||
+        value === '' ||
+        (typeof value === 'object' &&
+          value !== null &&
+          !Array.isArray(value) &&
+          Object.keys(value).length === 0)
+      ) {
         return acc;
       }
 
-      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      if (
+        typeof value === 'object' &&
+        value !== null &&
+        !Array.isArray(value)
+      ) {
         acc[key] = this.cleanOptions(value);
       } else {
         acc[key] = value;

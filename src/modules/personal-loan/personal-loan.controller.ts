@@ -129,13 +129,9 @@ export class PersonalLoanController {
     status: 200,
     description: 'Return the last created PersonalLoan',
   })
-  async getLastCreated(
-    @Param('id') customerId: string,
-  ): Promise<ResponseDTO> {
-    return await this.personalLoanService.findOne(
-      {
-        customer: { id: customerId },
-      }
-    );
+  async getLastCreated(@Param('id') customerId: string): Promise<ResponseDTO> {
+    return await this.personalLoanService.findOne({
+      customer: { id: customerId },
+    });
   }
 }
