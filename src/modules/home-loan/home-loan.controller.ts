@@ -177,7 +177,7 @@ export class HomeLoanController {
     );
   }
 
-  @Put(':id/assets')
+  @Put(':id/update-assets')
   @ApiOperation({ summary: 'Update assets of a home loan' })
   @ApiResponse({
     status: 200,

@@ -1,6 +1,12 @@
-import { PartialType } from '@nestjs/swagger';
-import { LoanDetailsMounthlyDto } from 'src/modules/personal-loan/dtos/loan-details-mounthly.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 
-export class UpdateHomeLoanMounthlyDetailsDto extends PartialType(
-  LoanDetailsMounthlyDto,
-) {}
+export class UpdateHomeLoanMounthlyDetailsDto {
+  @ApiProperty()
+  @IsString()
+  monthlyIncome: string;
+
+  @ApiProperty()
+  @IsString()
+  monthlyDebt: string;
+}

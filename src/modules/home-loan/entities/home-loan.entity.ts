@@ -38,8 +38,11 @@ export class HomeLoan {
   @Column({ type: 'numeric', nullable: true })
   priceHome: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'numeric', nullable: true })
   paymentInitial: string;
+
+  @Column({ nullable: true })
+  percentageInitial: string
 
   @Column({ type: 'numeric', nullable: true })
   monthlyIncome: number;

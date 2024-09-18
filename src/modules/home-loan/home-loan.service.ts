@@ -101,6 +101,7 @@ export class HomeLoanService extends CrudService<HomeLoan> {
   ): Promise<HomeLoan> {
     const homeLoan = await this.findHomeLoanById(id);
 
+    homeLoan.percentageInitial = updatePaymentInitialDto.percentageInitial;
     homeLoan.paymentInitial = updatePaymentInitialDto.paymentInitial;
     homeLoan.status = StatusHomeLoan.MOUNTLY_FINANCE;
 
@@ -114,7 +115,7 @@ export class HomeLoanService extends CrudService<HomeLoan> {
     const homeLoan = await this.findHomeLoanById(id);
 
     homeLoan.monthlyIncome = Number(updateMounthlyDetailsDto.monthlyIncome);
-    homeLoan.monthlyDebt = Number(updateMounthlyDetailsDto.monthlyBills);
+    homeLoan.monthlyDebt = Number(updateMounthlyDetailsDto.monthlyDebt);
     homeLoan.status = StatusHomeLoan.ASSETS;
 
     return this.homeLoanRepository.save(homeLoan);
@@ -139,6 +140,8 @@ export class HomeLoanService extends CrudService<HomeLoan> {
   ): Promise<HomeLoan> {
     const homeLoan = await this.findHomeLoanById(id);
     homeLoan.tc = updateTermsAndConditionsDto.tc;
+    homeLoan.status = StatusHomeLoan.CREATED;
+
     return this.homeLoanRepository.save(homeLoan);
   }
 }
