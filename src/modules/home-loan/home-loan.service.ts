@@ -13,6 +13,8 @@ import { UpdateTermsAndConditionsDto } from './dtos/update.terms-and-conditions.
 import { UpdateAddressHomeDto } from './dtos/update.address-home.dto';
 import { UpdateHomeLoanMounthlyDetailsDto } from './dtos/update.home-mounthly-details.dto';
 import { StatusHomeLoan } from './enums/home-loan.enum';
+import { UpdateAcceptHomeLoanDto } from './dtos/update.accept-home-loan.dto';
+import { UpdateInfoAfterRejectedDto } from './dtos/update.info-after-rejected.dto';
 
 @Injectable()
 export class HomeLoanService extends CrudService<HomeLoan> {
@@ -140,6 +142,43 @@ export class HomeLoanService extends CrudService<HomeLoan> {
   ): Promise<HomeLoan> {
     const homeLoan = await this.findHomeLoanById(id);
     homeLoan.tc = updateTermsAndConditionsDto.tc;
+    homeLoan.status = StatusHomeLoan.CREATED;
+
+    if (Number(homeLoan.priceHome) === 125000) {
+      homeLoan.status = StatusHomeLoan.FAILED;
+    }
+
+    return this.homeLoanRepository.save(homeLoan);
+  }
+
+  async updateAcceptHomeLoan(
+    id: string,
+    updateAcceptHomeLoan: UpdateAcceptHomeLoanDto,
+  ): Promise<HomeLoan> {
+    const homeLoan = await this.findHomeLoanById(id);
+
+    homeLoan.status = updateAcceptHomeLoan.condition
+      ? StatusHomeLoan.IN_PROCESS
+      : StatusHomeLoan.FAILED;
+
+    return this.homeLoanRepository.save(homeLoan);
+  }
+
+  async updateInfoAfterRejected(
+    id: string,
+    updateInfoAfterRejected: UpdateInfoAfterRejectedDto,
+  ): Promise<HomeLoan> {
+    const homeLoan = await this.findHomeLoanById(id);
+
+    homeLoan.priceHome = updateInfoAfterRejected.priceHome;
+    homeLoan.paymentInitial = String(updateInfoAfterRejected.paymentInitial);
+    homeLoan.percentageInitial =
+      String(
+        (updateInfoAfterRejected.paymentInitial /
+          updateInfoAfterRejected.priceHome) *
+          100,
+      ) + '%';
+
     homeLoan.status = StatusHomeLoan.CREATED;
 
     return this.homeLoanRepository.save(homeLoan);

@@ -27,6 +27,8 @@ import { TypeHomeDto } from './dtos/update.type-home.dto';
 import { UpdateAddressHomeDto } from './dtos/update.address-home.dto';
 import { UpdateHomeLoanMounthlyDetailsDto } from './dtos/update.home-mounthly-details.dto';
 import { ParamsDTO } from 'src/common/dtos';
+import { UpdateAcceptHomeLoanDto } from './dtos/update.accept-home-loan.dto';
+import { UpdateInfoAfterRejectedDto } from './dtos/update.info-after-rejected.dto';
 
 @ApiBearerAuth('JWT-auth')
 @ApiTags('HomeLoan')
@@ -227,5 +229,41 @@ export class HomeLoanController {
     return await this.homeLoanService.findOne({
       customer: { id: customerId },
     });
+  }
+
+  @Put(':id/accept-home-loan')
+  @ApiOperation({ summary: 'Accept home loan' })
+  @ApiResponse({
+    status: 200,
+    description: 'Accept home loan',
+    type: HomeLoan,
+  })
+  @ApiResponse({ status: 404, description: 'HomeLoan not found.' })
+  acceptHomeLoan(
+    @Param('id') id: string,
+    @Body() updateAcceptHomeLoanDto: UpdateAcceptHomeLoanDto,
+  ) {
+    return this.homeLoanService.updateAcceptHomeLoan(
+      id,
+      updateAcceptHomeLoanDto,
+    );
+  }
+
+  @Put(':id/update-info-rejected')
+  @ApiOperation({ summary: 'Update info after rejected' })
+  @ApiResponse({
+    status: 200,
+    description: 'the home loan updated successfully.',
+    type: HomeLoan,
+  })
+  @ApiResponse({ status: 404, description: 'Home Loan not found.' })
+  updateInfofterRejected(
+    @Param('id') id: string,
+    @Body() updateInfoAfterRejectedDto: UpdateInfoAfterRejectedDto,
+  ) {
+    return this.homeLoanService.updateInfoAfterRejected(
+      id,
+      updateInfoAfterRejectedDto,
+    );
   }
 }
