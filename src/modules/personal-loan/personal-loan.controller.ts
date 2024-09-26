@@ -22,6 +22,9 @@ import { UpdateTermsLoanDto } from './dtos/update.terms-loan.dto';
 import { UpdateAssetsDto } from './dtos/update.assets.dto';
 import { UpdateTermsAndConditionsDto } from './dtos/update.terms-and-conditions.dto';
 import { ParamsDTO } from 'src/common/dtos';
+import { PersonalLoan } from './entities/personal-loan.entity';
+import { UpdateAcceptPersonalLoanDto } from './dtos/update.accept-personal-loan.dto';
+import { UpdateInfoAfterRejectedDto } from './dtos/update.info-after-rejected.dto';
 
 @ApiBearerAuth('JWT-auth')
 @ApiTags('PersonalLoan')
@@ -133,5 +136,41 @@ export class PersonalLoanController {
     return await this.personalLoanService.findOne({
       customer: { id: customerId },
     });
+  }
+
+  @Put(':id/accept-personal-loan')
+  @ApiOperation({ summary: 'Accept personal loan' })
+  @ApiResponse({
+    status: 200,
+    description: 'Accept personal loan',
+    type: PersonalLoan,
+  })
+  @ApiResponse({ status: 404, description: 'Personal Loan not found.' })
+  acceptHomeLoan(
+    @Param('id') id: string,
+    @Body() updateAcceptPersonalLoanDto: UpdateAcceptPersonalLoanDto,
+  ) {
+    return this.personalLoanService.updateAcceptPersonalLoan(
+      id,
+      updateAcceptPersonalLoanDto,
+    );
+  }
+
+  @Put(':id/update-info-rejected')
+  @ApiOperation({ summary: 'Update info after rejected' })
+  @ApiResponse({
+    status: 200,
+    description: 'the personal loan updated successfully.',
+    type: PersonalLoan,
+  })
+  @ApiResponse({ status: 404, description: 'Personal Loan not found.' })
+  updateInfofterRejected(
+    @Param('id') id: string,
+    @Body() updateInfoAfterRejectedDto: UpdateInfoAfterRejectedDto,
+  ) {
+    return this.personalLoanService.updateInfoAfterRejected(
+      id,
+      updateInfoAfterRejectedDto,
+    );
   }
 }

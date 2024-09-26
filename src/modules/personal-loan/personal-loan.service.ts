@@ -10,6 +10,8 @@ import { UpdateTermsLoanDto } from './dtos/update.terms-loan.dto';
 import { UpdateAssetsDto } from './dtos/update.assets.dto';
 import { UpdateTermsAndConditionsDto } from './dtos/update.terms-and-conditions.dto';
 import { IPersonalLoan } from './interfaces/personal-loan.interfaces';
+import { UpdateInfoAfterRejectedDto } from './dtos/update.info-after-rejected.dto';
+import { UpdateAcceptPersonalLoanDto } from './dtos/update.accept-personal-loan.dto';
 
 @Injectable()
 export class PersonalLoanService extends CrudService<PersonalLoan> {
@@ -149,6 +151,11 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     personalLoan.data.tc = dto.tc;
     personalLoan.data.status = StatusPersonalLoan.CREATED;
 
+    if (Number(personalLoan.data.amount) === 1250) {
+      personalLoan.data.status = StatusPersonalLoan.FAILED;
+    }
+
+
     const loan = await this.personalLoanRepository.save(personalLoan.data);
 
     const response: IPersonalLoan = {
@@ -168,5 +175,40 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     };
 
     return response;
+  }
+
+  async updateAcceptPersonalLoan(
+    id: string,
+    updateAcceptPersonalLoan: UpdateAcceptPersonalLoanDto,
+  ): Promise<PersonalLoan> {
+    const personalLoan = await this.findOne({id});
+
+    if (!personalLoan || !personalLoan.data) {
+      throw new NotFoundException(`Personal loan for ID ${id} not found`);
+    }
+
+    personalLoan.data.status = updateAcceptPersonalLoan.condition
+      ? StatusPersonalLoan.IN_PROCESS
+      : StatusPersonalLoan.FAILED;
+
+    return this.personalLoanRepository.save(personalLoan.data);
+  }
+
+  async updateInfoAfterRejected(
+    id: string,
+    updateInfoAfterRejected: UpdateInfoAfterRejectedDto,
+  ): Promise<PersonalLoan> {
+    const personalLoan = await this.findOne({id});
+
+    if (!personalLoan || !personalLoan.data) {
+      throw new NotFoundException(`Personal loan for ID ${id} not found`);
+    }
+
+    personalLoan.data.amount = updateInfoAfterRejected.amount;
+    personalLoan.data.duration = updateInfoAfterRejected.duration;
+
+    personalLoan.data.status = StatusPersonalLoan.CREATED;
+
+    return this.personalLoanRepository.save(personalLoan.data);
   }
 }
