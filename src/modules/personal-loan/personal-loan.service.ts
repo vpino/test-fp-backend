@@ -155,7 +155,6 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
       personalLoan.data.status = StatusPersonalLoan.FAILED;
     }
 
-
     const loan = await this.personalLoanRepository.save(personalLoan.data);
 
     const response: IPersonalLoan = {
@@ -181,7 +180,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     id: string,
     updateAcceptPersonalLoan: UpdateAcceptPersonalLoanDto,
   ): Promise<PersonalLoan> {
-    const personalLoan = await this.findOne({id});
+    const personalLoan = await this.findOne({ id });
 
     if (!personalLoan || !personalLoan.data) {
       throw new NotFoundException(`Personal loan for ID ${id} not found`);
@@ -198,7 +197,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     id: string,
     updateInfoAfterRejected: UpdateInfoAfterRejectedDto,
   ): Promise<PersonalLoan> {
-    const personalLoan = await this.findOne({id});
+    const personalLoan = await this.findOne({ id });
 
     if (!personalLoan || !personalLoan.data) {
       throw new NotFoundException(`Personal loan for ID ${id} not found`);
