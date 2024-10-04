@@ -212,8 +212,7 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     return this.personalLoanRepository.save(personalLoan.data);
   }
 
-  async getLastCreated(customerId: string): Promise<ResponseDTO>  {
-
+  async getLastCreated(customerId: string): Promise<ResponseDTO> {
     const personaLoan = await this.personalLoanRepository.findOne({
       where: {
         customer: { id: customerId },
@@ -221,8 +220,8 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
       order: {
         createdAt: 'DESC',
       },
-    })
+    });
 
-    return { data: personaLoan }
+    return { data: personaLoan };
   }
 }

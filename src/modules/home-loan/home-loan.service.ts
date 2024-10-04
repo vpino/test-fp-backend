@@ -185,8 +185,7 @@ export class HomeLoanService extends CrudService<HomeLoan> {
     return this.homeLoanRepository.save(homeLoan);
   }
 
-  async getLastCreated(customerId: string): Promise<ResponseDTO>  {
-
+  async getLastCreated(customerId: string): Promise<ResponseDTO> {
     const personaLoan = await this.homeLoanRepository.findOne({
       where: {
         customer: { id: customerId },
@@ -194,8 +193,8 @@ export class HomeLoanService extends CrudService<HomeLoan> {
       order: {
         createdAt: 'DESC',
       },
-    })
+    });
 
-    return { data: personaLoan }
+    return { data: personaLoan };
   }
 }
