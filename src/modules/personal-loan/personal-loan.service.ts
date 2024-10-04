@@ -12,6 +12,7 @@ import { UpdateTermsAndConditionsDto } from './dtos/update.terms-and-conditions.
 import { IPersonalLoan } from './interfaces/personal-loan.interfaces';
 import { UpdateInfoAfterRejectedDto } from './dtos/update.info-after-rejected.dto';
 import { UpdateAcceptPersonalLoanDto } from './dtos/update.accept-personal-loan.dto';
+import { ResponseDTO } from 'src/common/dtos';
 
 @Injectable()
 export class PersonalLoanService extends CrudService<PersonalLoan> {
@@ -209,5 +210,19 @@ export class PersonalLoanService extends CrudService<PersonalLoan> {
     personalLoan.data.status = StatusPersonalLoan.CREATED;
 
     return this.personalLoanRepository.save(personalLoan.data);
+  }
+
+  async getLastCreated(customerId: string): Promise<ResponseDTO>  {
+
+    const personaLoan = await this.personalLoanRepository.findOne({
+      where: {
+        customer: { id: customerId },
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    })
+
+    return { data: personaLoan }
   }
 }

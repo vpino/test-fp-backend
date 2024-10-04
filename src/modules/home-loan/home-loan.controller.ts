@@ -226,9 +226,7 @@ export class HomeLoanController {
     description: 'Return the last created HomeLoan',
   })
   async getLastCreated(@Param('id') customerId: string): Promise<ResponseDTO> {
-    return await this.homeLoanService.findOne({
-      customer: { id: customerId },
-    });
+    return await this.homeLoanService.getLastCreated(customerId);
   }
 
   @Put(':id/accept-home-loan')

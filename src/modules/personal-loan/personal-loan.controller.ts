@@ -133,9 +133,7 @@ export class PersonalLoanController {
     description: 'Return the last created PersonalLoan',
   })
   async getLastCreated(@Param('id') customerId: string): Promise<ResponseDTO> {
-    return await this.personalLoanService.findOne({
-      customer: { id: customerId },
-    });
+    return await this.personalLoanService.getLastCreated(customerId)
   }
 
   @Put(':id/accept-personal-loan')

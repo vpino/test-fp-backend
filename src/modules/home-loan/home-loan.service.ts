@@ -15,6 +15,7 @@ import { UpdateHomeLoanMounthlyDetailsDto } from './dtos/update.home-mounthly-de
 import { StatusHomeLoan } from './enums/home-loan.enum';
 import { UpdateAcceptHomeLoanDto } from './dtos/update.accept-home-loan.dto';
 import { UpdateInfoAfterRejectedDto } from './dtos/update.info-after-rejected.dto';
+import { ResponseDTO } from 'src/common/dtos';
 
 @Injectable()
 export class HomeLoanService extends CrudService<HomeLoan> {
@@ -182,5 +183,19 @@ export class HomeLoanService extends CrudService<HomeLoan> {
     homeLoan.status = StatusHomeLoan.CREATED;
 
     return this.homeLoanRepository.save(homeLoan);
+  }
+
+  async getLastCreated(customerId: string): Promise<ResponseDTO>  {
+
+    const personaLoan = await this.homeLoanRepository.findOne({
+      where: {
+        customer: { id: customerId },
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    })
+
+    return { data: personaLoan }
   }
 }
