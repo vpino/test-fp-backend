@@ -4,9 +4,6 @@ import {
   IsString,
   IsEnum,
   IsDateString,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-  ValidationArguments,
   IsNotEmpty,
   IsBoolean,
   IsArray,
@@ -22,21 +19,7 @@ function DontDisplay(target: any, propertyKey: string) {
   Reflect.defineMetadata('dontDisplay', true, target, propertyKey);
 }
 
-@ValidatorConstraint({ name: 'arrayNotNull', async: false })
-export class ArrayNotNullValidator implements ValidatorConstraintInterface {
-  validate(value: any, args: ValidationArguments) {
-    if (!Array.isArray(value)) {
-      return false;
-    }
-    return value.every((element) => element.trim() !== '');
-  }
-
-  defaultMessage(args: ValidationArguments) {
-    return 'Each element in $property must not be empty';
-  }
-}
-
-export class CreateIndividualCustomerDto {
+export class UpdateIndividualCustomerDto {
   @ApiProperty()
   @IsUUID()
   @IsOptional()
@@ -53,6 +36,7 @@ export class CreateIndividualCustomerDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   firstName: string = '';
 
   @ApiProperty()
@@ -65,38 +49,47 @@ export class CreateIndividualCustomerDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   lastName: string = '';
 
   @ApiProperty()
   @IsDateString()
+  @IsOptional()
   dateOfBirth: Date = new Date();
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   country: string = '';
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   city: string = '';
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   state: string = '';
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   zipCode: string = '';
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
+  @IsOptional()
   dni: string = '';
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   address: string = '';
 
   @ApiProperty()

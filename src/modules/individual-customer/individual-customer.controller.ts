@@ -24,6 +24,7 @@ import { EducationDataDTO } from './dtos/education-data.dto';
 import { OccupationDTO } from './dtos/occupation.dto';
 import { CompanyInfoDTO } from './dtos/company-info.dto';
 import { ContactInfoDTO } from './dtos/contact-info.dto';
+import { UpdateIndividualCustomerDto } from './dtos/update.individual-customer.dto';
 
 @SkipJwtAuth()
 @ApiBearerAuth('JWT-auth')
@@ -78,7 +79,7 @@ export class IndividualCustomerController {
   })
   async update(
     @Param('id') id: string,
-    @Body() individualCustomer: CreateIndividualCustomerDto,
+    @Body() individualCustomer: UpdateIndividualCustomerDto,
   ): Promise<ResponseDTO> {
     return this.individualCustomerService.update(id, individualCustomer);
   }
