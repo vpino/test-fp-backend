@@ -61,7 +61,7 @@ export class AuthService {
     const accessToken = this.jwtService.sign(payload);
 
     if (response.individual) {
-      response.individual['email'] = response.customer.email
+      response.individual['email'] = response.customer.email;
     }
 
     return {
